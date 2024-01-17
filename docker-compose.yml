@@ -1,0 +1,59 @@
+version: "3.8"
+services:
+  db:
+    container_name: mbpl-db
+    build:
+      context: database
+      dockerfile: Dockerfile
+    ports:
+      - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_USER: library
+      MYSQL_PASSWORD: p@ssw0rd123
+      MYSQL_ROOT_PASSWORD: rootp@ssw0rd123
+    volumes:
+      - ./database/dump:/docker-entrypoint-initdb.d
+      - ./database/conf:/etc/mysql/conf.d
+      - persistent:/var/lib/mysql
+    networks:
+      - default
+    restart: always
+
+  bookstore:
+    container_name: mbpl-bookstore
+    build:
+      context: bookstore
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./bookstore/www/:/var/www/html/
+    links:
+      - db
+    depends_on:
+      - db
+    networks:
+      - default
+    restart: always
+
+  administrator:
+    container_name: mbpl-administrator
+    build:
+      context: administrator
+      dockerfile: Dockerfile
+    ports:
+      - "8000:80"
+    # volumes:
+    #   - ./administrator/www/:/var/www/html/
+    links:
+      - db
+    depends_on:
+      - db
+    networks:
+      - default
+    # command: sh -c "mkdir -p /var/www/html/administrator/uploads && chmod 777 /var/www/html/administrator/uploads && apache2-foreground"
+    restart: always
+
+volumes:
+  persistent:
