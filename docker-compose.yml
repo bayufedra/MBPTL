@@ -44,15 +44,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - "8080:80"
-    # volumes:
-    #   - ./administrator/www/:/var/www/html/
     links:
       - db
     depends_on:
       - db
     networks:
       - default
-    # command: sh -c "mkdir -p /var/www/html/administrator/uploads && chmod 777 /var/www/html/administrator/uploads && apache2-foreground"
     restart: always
 
 volumes:
