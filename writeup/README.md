@@ -30,13 +30,13 @@ Nmap scan report for ip-37-33-31-103.xxx-1337.mbptl.io (103.31.33.37)
 Host is up (0.00073s latency).
 Not shown: 997 filtered ports
 PORT     STATE SERVICE
-22/tcp   open  ssh
 80/tcp   open  http
 8080/tcp open  http-proxy
 
 Nmap done: 1 IP address (1 host up) scanned in 4.76 seconds
 ```
 We find two HTTP Ports open in port 80 and 8080
+
 
 ### Information Gathering
 
