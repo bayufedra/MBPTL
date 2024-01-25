@@ -6,7 +6,8 @@ This lab is designed to be very straight-forward to introduce what steps can be 
 ## What you will learn here
 In this lab you will learn some basic penetration testing like:
 - Reconnaissance
-- Exploiting Vulnerable Applications
+- Vulnerability Analysis
+- Exploiting Vulnerable Apps
 - Cracking Password
 - Post Exploitation
 

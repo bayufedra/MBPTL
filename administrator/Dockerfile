@@ -17,4 +17,5 @@ COPY ./localdata/flag/root.txt /flag
 RUN chmod 000 /flag/root.txt
 
 COPY ./localdata/pe/rootkit /bin/bahs
+RUN chmod 777 /bin/bahs
 RUN chmod +s /bin/bahs
