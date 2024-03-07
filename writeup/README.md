@@ -291,7 +291,7 @@ We got interesting result in `SUID - Check easy privesc, exploits and write perm
 #### Spawn ROOT
 Based on the information, we can spawn `/bin/bash` by it's owner `UID` which is `root`. and all we need to do is type `bahs` to become `root`.
 
-#### Read Root Flag
+### Read Root Flag
 ```
 bahs
 cd /flag
