@@ -144,7 +144,7 @@ Task Completed
 We found some path directory exists in there, this information will useful later if we found some related data
 
 # Vulnerability Analysis
-After checking in two open port, we didn't find anything interesting in port 8080. But when we see web on port 80 having url `detail.php?id=1` when we click on `View Details` menu. When we add single quote `'` in the url, so the url will be like `detail.php?id=1'` the web will giving response like:
+After checking in two open port, we didn't find anything interesting in port 8080. But when we see web on port 80 there is some list and once we click any items the url will change like `detail.php?id=1` after we click on `View Details` menu. When we add single quote `'` in the url, so the url will be like `detail.php?id=1'` the web will giving response like:
 ```
 Error: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' LIMIT 1' at line 1
 ```
