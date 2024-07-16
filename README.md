@@ -12,22 +12,22 @@ In this lab you will learn some basic penetration testing like:
 - Post Exploitation
 
 ## Set up Lab in Linux
-#### Install Docker
+#### Installing Docker
 ```
 curl -s https://get.docker.com/ | sudo sh -
 ```
 
-#### Install GIT
+#### Installing GIT
 ```
 sudo apt install git
 ```
 
-#### Close Repository
+#### Clone the Repository
 ```
 git clone https://github.com/bayufedra/MBPTL
 ```
 
-#### Deploy
+#### Deploy the Machine
 ```
 cd MBPTL
 sudo docker compose up -d
