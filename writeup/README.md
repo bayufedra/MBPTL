@@ -43,7 +43,7 @@ HTTP and HTTPS Protocol sometime contain some information in their response head
 
 #### Install curl
 ```
-sudo apt install nmap curl
+sudo apt install curl
 ```
 
 #### Basic usage
