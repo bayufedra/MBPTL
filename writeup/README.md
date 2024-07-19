@@ -204,7 +204,10 @@ Table: users
 ```
 
 ### Cracking Password
-We got credentials of the admin from the website, but the password seems to be hashed. we will crack the hash by using this website https://hashes.com/en/decrypt/hash and we found the real strings from the hash is `P@assw0rd!`. But where we will use this credentials? remember we see `/administrator` folder exists in port `8080`, right? And we successfully logged in there.
+We got credentials of the admin from the website, but the password seems to be hashed. we will crack the hash by using this website https://hashes.com/en/decrypt/hash and we found the real strings from the hash is `P@assw0rd!`.
+![Crack Password](./img/crackpass.JPG)
+
+But where we will use this credentials? remember we see `/administrator` folder exists in port `8080`, right? And we successfully logged in there.
 
 ### Gaining Access to Server
 After login we only see the file upload feature in it, since the website using `PHP` as it's backend we can try uploading `.php` file which containing malicious code in it. create new txt file, edit and write `<?php system($_GET["command"]); ?>` in there and rename it extension with `.php` and save it.
