@@ -1,7 +1,7 @@
-version: "3.8"
+# version: "3.8"
 services:
   db:
-    container_name: mbpl-db
+    container_name: mbptl-db
     build:
       context: database
       dockerfile: Dockerfile
@@ -21,7 +21,7 @@ services:
     restart: always
 
   bookstore:
-    container_name: mbpl-bookstore
+    container_name: mbptl-bookstore
     build:
       context: bookstore
       dockerfile: Dockerfile
@@ -38,7 +38,7 @@ services:
     restart: always
 
   administrator:
-    container_name: mbpl-administrator
+    container_name: mbptl-administrator
     build:
       context: administrator
       dockerfile: Dockerfile

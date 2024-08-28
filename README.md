@@ -29,6 +29,18 @@ git clone https://github.com/bayufedra/MBPTL
 
 #### Deploy the Machine
 ```
-cd MBPTL
+cd MBPTL/mbptl/
 sudo docker compose up -d
 ```
+
+## What's the Next?
+Remember that this lab is for the first step to learn Penetration Testing to give you an image about what we doing in penetration testing and after finish this lab, you can continue to learn with another lab like:
+- <a href="https://github.com/digininja/DVWA">DVWA</a> -> Here you will learn more about basic application vulnerability 
+- <a href="http://www.itsecgames.com/">BWAPP</a> -> Here you will learn more about applications vulnerabilities and it has more vulnerabilities compared to DVWA
+- <a href="">Hack The Box</a> -> Here you can play more machine without setup in your local because you will access on their server using VPN
+- <a href="">Try Hack Me</a> -> Simply like Hack the Box
+
+## Contact
+- LinkedIn: https://www.linkedin.com/in/bayufedra/
+- Instagram: https://www.instagram.com/bayufedraa/
+- Twitter: https://x.com/bayufedraa
