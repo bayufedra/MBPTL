@@ -5,13 +5,13 @@ This lab is designed to be very straight-forward to introduce what steps can be 
 
 ## Overview
 - [What you will learn here?](#what-you-will-learn-here)
-- [Install This Lab]()
-  - [Setup Requirements]()
-  - [Setup the Machine]()
-- [After finish this Lab?]()
-  - [Recommended Tools]()
-- [License]()
-- [Contact]()
+- [Install This Lab](#install-this-lab)
+  - [Install Requirements](#)
+  - [Setup the Machine](#)
+- [After finish this Lab?](#after-finish-this-lab)
+  - [Recommended Tools](#recommended-tools)
+- [License](#license)
+- [Contact](#contact)
 
 ## What you will learn here?
 In this lab you will learn some basic penetration testing like:
@@ -21,29 +21,28 @@ In this lab you will learn some basic penetration testing like:
 - Cracking Password
 - Post Exploitation
 
-## Install This Lab
-### Setup Requirements
-#### Linux
-##### Installing Docker
+## Install Requirements
+### Linux
+#### Installing Docker
 ```
 curl -s https://get.docker.com/ | sudo sh -
 ```
 
-##### Installing GIT
+#### Installing GIT
 ```
 sudo apt install git
 ```
 
-#### Windows
-#### MacOS
+### Windows
+### MacOS
 
-### Setup the Machine
-#### Clone the Repository
+## Deploy the Machine
+### Clone the Repository
 ```
 git clone https://github.com/bayufedra/MBPTL
 ```
 
-#### Deploy the Machine
+### Deploy
 ```
 cd MBPTL/mbptl/
 sudo docker compose up -d
