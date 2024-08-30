@@ -70,7 +70,7 @@ git clone https://github.com/bayufedra/MBPTL
 ### Deploy
 ```
 cd MBPTL/mbptl/
-sudo docker compose up -d
+docker compose up -d
 ```
 
 ## After finish this Lab?
