@@ -3,7 +3,17 @@ Most Basic Penetration Testing Lab (MBPTL) is straight-forward hacking lab machi
 
 This lab is designed to be very straight-forward to introduce what steps can be taken during penetration testing and the tools related to these steps.
 
-## What you will learn here
+## Overview
+- [What you will learn here?](#what-you-will-learn-here)
+- [Install This Lab]()
+  - [Setup Requirements]()
+  - [Setup the Machine]()
+- [After finish this Lab?]()
+  - [Recommended Tools]()
+- [License]()
+- [Contact]()
+
+## What you will learn here?
 In this lab you will learn some basic penetration testing like:
 - Reconnaissance
 - Vulnerability Analysis
@@ -11,17 +21,23 @@ In this lab you will learn some basic penetration testing like:
 - Cracking Password
 - Post Exploitation
 
-## Set up Lab in Linux
-#### Installing Docker
+## Install This Lab
+### Setup Requirements
+#### Linux
+##### Installing Docker
 ```
 curl -s https://get.docker.com/ | sudo sh -
 ```
 
-#### Installing GIT
+##### Installing GIT
 ```
 sudo apt install git
 ```
 
+#### Windows
+#### MacOS
+
+### Setup the Machine
 #### Clone the Repository
 ```
 git clone https://github.com/bayufedra/MBPTL
@@ -33,7 +49,7 @@ cd MBPTL/mbptl/
 sudo docker compose up -d
 ```
 
-## What's the Next?
+## After finish this Lab?
 Remember that this lab is for the first step to learn Penetration Testing to give you an image about what we doing in penetration testing and after finish this lab, you can continue to learn with another lab like:
 
 | Lab Name | Description |
@@ -52,7 +68,7 @@ Remember that this lab is for the first step to learn Penetration Testing to giv
 
 While working with these labs, you might find the following tools helpful:
 
-- **[Burp Suite](https://portswigger.net/burp)**: A comprehensive tool for web application security testing.
+- **[Burp Suite](https://portswigger.net/burp)**: A comprehensive tool for application security testing.
 - **[Nmap](https://nmap.org/)**: A network scanning tool to discover hosts and services on a computer network.
 - **[Metasploit](https://www.metasploit.com/)**: A framework for developing, testing, and executing exploits against a remote target machine.
 
