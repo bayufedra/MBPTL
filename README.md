@@ -6,6 +6,9 @@ This lab is designed to be very straight-forward to introduce what steps can be 
 ## Overview
 - [What you will learn here?](#what-you-will-learn-here)
 - [Install Requirements](#install-requirements)
+  - [Linux](#linux)
+  - [Windows](#windows)
+  - [MacOS](#macos)
 - [Deploy the Machine](#deploy-the-machine)
 - [After finish this Lab?](#after-finish-this-lab)
   - [Recommended Tools](#recommended-tools)
@@ -33,7 +36,30 @@ sudo apt install git
 ```
 
 ### Windows
+#### Installing Docker
+1. Download Docker Desktop for Windows from [Docker's official site](https://www.docker.com/products/docker-desktop/).
+2. Run the installer and follow the installation steps.
+3. After installation, ensure Docker Desktop is running.
+
+#### Installing GIT
+1. Download Git for Windows from [Git's official site](https://git-scm.com/download/win).
+2. Run the installer and follow the installation steps.
+3. Use Git Bash, which comes with the Git installation, for command-line operations.
+
 ### MacOS
+#### Installing Docker
+1. Download Docker Desktop for Mac from [Docker's official site](https://www.docker.com/products/docker-desktop/).
+2. Open the downloaded `.dmg` file and drag Docker to your Applications folder.
+3. Start Docker from the Applications folder.
+
+#### Installing GIT
+1. Open Terminal.
+2. Install Git using Homebrew (if you have it installed) by running:
+    ```bash
+    brew install git
+    ```
+   If Homebrew is not installed, download Git directly from [Git's official site](https://git-scm.com/download/mac) and follow the installation instructions.
+
 
 ## Deploy the Machine
 ### Clone the Repository
