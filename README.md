@@ -5,9 +5,8 @@ This lab is designed to be very straight-forward to introduce what steps can be 
 
 ## Overview
 - [What you will learn here?](#what-you-will-learn-here)
-- [Install This Lab](#install-this-lab)
-  - [Install Requirements](#)
-  - [Setup the Machine](#)
+- [Install Requirements](#install-requirements)
+- [Deploy the Machine](#deploy-the-machine)
 - [After finish this Lab?](#after-finish-this-lab)
   - [Recommended Tools](#recommended-tools)
 - [License](#license)
