@@ -3,7 +3,7 @@ Most Basic Penetration Testing Lab (MBPTL) is straight-forward hacking lab machi
 
 This lab is designed to be very straight-forward to introduce what steps can be taken during penetration testing and the tools related to these steps.
 
-## Overview
+## Table of Contents
 - [What you will learn here?](#what-you-will-learn-here)
 - [Install Requirements](#install-requirements)
   - [Linux](#linux)
@@ -16,7 +16,7 @@ This lab is designed to be very straight-forward to introduce what steps can be 
 - [License](#license)
 - [Contact](#contact)
 
-## What you will learn here?
+## What will you learn from this lab?
 In this lab you will learn some basic penetration testing like:
 - Reconnaissance
 - Vulnerability Analysis
