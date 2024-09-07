@@ -10,7 +10,7 @@ This lab is designed to be very straight-forward to introduce what steps can be 
   - [Windows](#windows)
   - [MacOS](#macos)
 - [Deploy the Machine](#deploy-the-machine)
-- [Wrute Up](#writeup)
+- [Wrute Up](#write-up)
 - [After finish this Lab?](#after-finish-this-lab)
   - [Recommended Tools](#recommended-tools)
 - [License](#license)
