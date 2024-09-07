@@ -73,6 +73,9 @@ cd MBPTL/mbptl/
 docker compose up -d
 ```
 
+## Write Up
+You can read the [Write Up](WRITEUP.md) for the solutions of this lab
+
 ## After finish this Lab?
 Remember that this lab is for the first step to learn Penetration Testing to give you an image about what we doing in penetration testing and after finish this lab, you can continue to learn with another lab like:
 
