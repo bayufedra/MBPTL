@@ -1,3 +1,2 @@
-sudo docker compose down -v
-sudo docker compose build
-sudo docker compose up -d
+docker compose down -v
+docker compose up -d --build

@@ -1,59 +1,98 @@
 # Most Basic Penetration Testing Lab (MBPTL)
-Most Basic Penetration Testing Lab (MBPTL) is straight-forward hacking lab machine which designed for new comer who want to learn cyber security especially in Penetration Testing field. This is a self-deployed lab that runs inside Docker and is very easy to setup.
 
-This lab is designed to be very straight-forward to introduce what steps can be taken during penetration testing and the tools related to these steps.
+[![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-green.svg)](https://opensource.org/licenses/GPL-3.0)
+[![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
+[![Python](https://img.shields.io/badge/Python-3.x-yellow.svg)](https://www.python.org/)
 
-## Table of Contents
-- [What you will learn here?](#what-you-will-learn-here)
-- [Install Requirements](#install-requirements)
+A straightforward penetration testing lab designed for newcomers who want to learn cybersecurity, especially in the penetration testing field. This is a self-deployed lab that runs inside Docker and is very easy to set up.
+
+This lab is designed to be very straightforward to introduce what steps can be taken during penetration testing and the tools related to these steps.
+
+## 🎯 What You'll Learn
+
+In this lab, you will learn fundamental penetration testing concepts:
+
+- **Reconnaissance** - Information gathering and target enumeration
+- **Vulnerability Analysis** - Identifying security weaknesses
+- **Exploitation** - Exploiting vulnerable applications
+- **Password Cracking** - Breaking authentication mechanisms
+- **Post Exploitation** - Maintaining access and privilege escalation
+
+## 📋 Prerequisites
+
+Before starting this lab, you should have:
+
+- Basic understanding of Linux command line
+- Familiarity with networking concepts
+- Knowledge of web technologies (HTML, PHP, SQL)
+- A computer with at least 4GB RAM and 10GB free disk space
+
+## 🚀 Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/bayufedra/MBPTL
+
+# Navigate to the lab directory
+cd MBPTL/mbptl/
+
+# Deploy the lab
+docker compose up -d
+```
+
+## 📖 Table of Contents
+
+- [Installation Requirements](#installation-requirements)
   - [Linux](#linux)
   - [Windows](#windows)
-  - [MacOS](#macos)
-- [Deploy the Machine](#deploy-the-machine)
-- [Wrute Up](#write-up)
-- [After finish this Lab?](#after-finish-this-lab)
+  - [macOS](#macos)
+- [Deployment](#deployment)
+- [Environment Variables](#environment-variables)
+- [Lab Structure](#lab-structure)
+- [Write-up](#write-up)
+- [Troubleshooting](#troubleshooting)
+- [Next Steps](#next-steps)
+  - [Fundamental Knowledge](#fundamental-knowledge)
   - [Recommended Tools](#recommended-tools)
+  - [Practice Labs](#practice-labs)
+- [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
 
-## What will you learn from this lab?
-In this lab you will learn some basic penetration testing like:
-- Reconnaissance
-- Vulnerability Analysis
-- Exploiting Vulnerable Apps
-- Cracking Password
-- Post Exploitation
+## 💻 Installation Requirements
 
-## Install Requirements
 ### Linux
+
 #### Installing Docker
-```
+```bash
 curl -s https://get.docker.com/ | sudo sh -
 ```
 
-#### Installing GIT
-```
+#### Installing Git
+```bash
 sudo apt install git
 ```
 
 ### Windows
+
 #### Installing Docker
 1. Download Docker Desktop for Windows from [Docker's official site](https://www.docker.com/products/docker-desktop/).
 2. Run the installer and follow the installation steps.
 3. After installation, ensure Docker Desktop is running.
 
-#### Installing GIT
+#### Installing Git
 1. Download Git for Windows from [Git's official site](https://git-scm.com/download/win).
 2. Run the installer and follow the installation steps.
 3. Use Git Bash, which comes with the Git installation, for command-line operations.
 
-### MacOS
+### macOS
+
 #### Installing Docker
 1. Download Docker Desktop for Mac from [Docker's official site](https://www.docker.com/products/docker-desktop/).
 2. Open the downloaded `.dmg` file and drag Docker to your Applications folder.
 3. Start Docker from the Applications folder.
 
-#### Installing GIT
+#### Installing Git
 1. Open Terminal.
 2. Install Git using Homebrew (if you have it installed) by running:
     ```bash
@@ -61,90 +100,146 @@ sudo apt install git
     ```
    If Homebrew is not installed, download Git directly from [Git's official site](https://git-scm.com/download/mac) and follow the installation instructions.
 
+## 🏗️ Deployment
 
-## Deploy the Machine
-### Clone the Repository
-```
+### Step 1: Clone the Repository
+```bash
 git clone https://github.com/bayufedra/MBPTL
 ```
 
-### Deploy
-```
+### Step 2: Deploy the Lab
+```bash
 cd MBPTL/mbptl/
 docker compose up -d
 ```
 
-## Write Up
-You can read the [Write Up](WRITEUP.md) for the solutions of this lab
+### Step 3: Verify Deployment
+Once deployed, you should be able to access:
+- Main application: `http://localhost:80`
+- Administrator panel: `http://localhost:8080`
 
-## After finish this Lab?
-Remember that this lab is for the first step to learn Penetration Testing to give you an image about what we doing in penetration testing and after finish this lab, you can continue to learn with another lab like:
+## ⚙️ Environment Variables
 
-### Learn Fundamental
-- **Operating System**: All services on a computer run on top of an operating system. Understanding the operating system means knowing how processes, files, and access rights are managed, as well as identifying security vulnerabilities that can be exploited by attackers, such as privilege escalation, rootkits, or malware. Mastery of operating systems like Linux and Windows is essential in cybersecurity.
-- **Networking**: All data from a computer is transferred through networks, whether local or public. Understanding networking fundamentals allows us to identify potential vulnerabilities like sniffing, man-in-the-middle (MitM) attacks, DDoS, or port scanning. This knowledge is crucial for protecting networks and ensuring that data is not intercepted or compromised.
-- **Programming**: All computer services are built using programming languages. Understanding programming helps us find vulnerabilities or bugs in the code, such as SQL injection, buffer overflow, or cross-site scripting (XSS). With programming skills, we can also create automation scripts, such as auto-exploit scripts, as well as tools for penetration testing and security auditing.
-- **Cryptography**: Cryptography is used to protect sensitive data. Understanding the basics of encryption, hashing, and other cryptographic methods allows us to identify weaknesses in encryption implementations, such as weak algorithms, poor key management, or attacks on encryption systems like brute-force and side-channel attacks.
-- **CWE (Common Weakness Enumeration)**: CWE is a list of common software weaknesses. Understanding CWE helps us identify patterns of weaknesses in the code, such as poor input validation, memory management errors, or configuration mistakes that attackers frequently exploit. By understanding CWE, we can prevent weaknesses from appearing in software development and fix existing weaknesses.
-- **CVE (Common Vulnerabilities and Exposures)**: CVE is a list of publicly known vulnerabilities and exposures found in software or systems. Each CVE represents a vulnerability that can be exploited by attackers if left unpatched. Understanding and staying updated with CVE helps us stay informed about the latest threats and apply necessary patches or mitigations to prevent attacks.
+### Database Configuration
+- `MYSQL_ROOT_PASSWORD`: Root password for MySQL database
+- `MYSQL_DATABASE`: Database name
+- `MYSQL_USER`: Database user
+- `MYSQL_PASSWORD`: Database user password
 
-### Mastering Cyber Security Tools
+### Port Configuration
+- `WEB1_PORT`: Port for web interface (default: 80)
+- `WEB2_PORT`: Port for API (default: 8080)
+- `DB_PORT`: Port for database (default: 3306)
+- `WEB_INTERNAL_PORT`: Port for internal service (default: 1337)
+
+## 📝 Write-up
+
+You can read the [Write-up](writeup/README.md) for detailed solutions and walkthroughs of this lab.
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**Docker containers not starting:**
+```bash
+# Check Docker status
+docker ps -a
+
+# Restart containers
+docker compose down
+docker compose up -d
+```
+
+**Port conflicts:**
+- If ports 80 or 8080 are already in use, modify the `docker-compose.yml` file to use different ports.
+
+**Permission issues:**
+```bash
+# On Linux/macOS, ensure your user is in the docker group
+sudo usermod -aG docker $USER
+```
+
+## 🎓 Next Steps
+
+Remember that this lab is the first step in learning penetration testing. It gives you an overview of what we do in penetration testing. After completing this lab, you can continue learning with other resources:
+
+### Fundamental Knowledge
+
+- **Operating Systems**: Understanding how processes, files, and access rights are managed is essential. Mastery of Linux and Windows helps identify vulnerabilities like privilege escalation, rootkits, or malware.
+
+- **Networking**: All data transfers through networks. Understanding networking fundamentals helps identify vulnerabilities like sniffing, man-in-the-middle (MitM) attacks, DDoS, or port scanning.
+
+- **Programming**: All computer services are built using programming languages. Understanding programming helps find vulnerabilities like SQL injection, buffer overflow, or cross-site scripting (XSS).
+
+- **Cryptography**: Understanding encryption, hashing, and cryptographic methods helps identify weaknesses in encryption implementations and prevent attacks like brute-force and side-channel attacks.
+
+- **CWE (Common Weakness Enumeration)**: A list of common software weaknesses that helps identify patterns like poor input validation, memory management errors, or configuration mistakes.
+
+- **CVE (Common Vulnerabilities and Exposures)**: A list of publicly known vulnerabilities that helps stay informed about the latest threats and apply necessary patches.
+
+### Recommended Tools
+
 #### Application Security
-- **[Burp Suite](https://portswigger.net/burp)**: A comprehensive tool for application security testing.
-- **[OWASP ZAP](https://www.zaproxy.org/)**: An open-source tool for finding vulnerabilities in web applications.
-- **[Nikto](https://cirt.net/Nikto2)**: A web server scanner that checks for outdated versions, dangerous files, and server misconfigurations.
-- **[Sqlmap](https://sqlmap.org/)**: A tool that automates the process of detecting and exploiting SQL injection flaws.
-- **[Semgrep](https://semgrep.dev/)**: A static analysis tool that helps you find and fix security issues in your code by searching code patterns.
-- **[Trivy](https://github.com/aquasecurity/trivy)**: A simple and comprehensive vulnerability scanner for software component also for containers.
+- **[Burp Suite](https://portswigger.net/burp)**: Comprehensive application security testing
+- **[OWASP ZAP](https://www.zaproxy.org/)**: Open-source web application vulnerability scanner
+- **[Nikto](https://cirt.net/Nikto2)**: Web server scanner for outdated versions and misconfigurations
+- **[Sqlmap](https://sqlmap.org/)**: Automated SQL injection detection and exploitation
+- **[Semgrep](https://semgrep.dev/)**: Static analysis tool for finding security issues in code
+- **[Trivy](https://github.com/aquasecurity/trivy)**: Vulnerability scanner for software components and containers
 
-#### Network Scanning, Enumeration and Security
-- **[Nmap](https://nmap.org/)**: A network scanning tool to discover hosts and services on a computer network.
-- **[Angry IP Scanner](https://angryip.org/)**: A fast and easy-to-use network scanner.
-- **[Netcat](https://nc110.sourceforge.io/)**: A networking utility for debugging and investigating the network, can also be used for port scanning and banner grabbing.
-- **[Aircrack-ng](https://www.aircrack-ng.org/)**: A set of tools for auditing wireless networks by capturing packets and cracking WiFi passwords.
+#### Network Security
+- **[Nmap](https://nmap.org/)**: Network scanning and host discovery
+- **[Angry IP Scanner](https://angryip.org/)**: Fast and easy-to-use network scanner
+- **[Netcat](https://nc110.sourceforge.io/)**: Networking utility for debugging and port scanning
+- **[Aircrack-ng](https://www.aircrack-ng.org/)**: Wireless network auditing tools
 
 #### Exploitation Frameworks
-- **[Metasploit](https://www.metasploit.com/)**: A framework for developing, testing, and executing exploits against a remote target machine.
-- **[Empire](https://github.com/EmpireProject/Empire)**: A post-exploitation framework that focuses on powershell and python agents.
+- **[Metasploit](https://www.metasploit.com/)**: Framework for developing and executing exploits
+- **[Empire](https://github.com/EmpireProject/Empire)**: Post-exploitation framework with PowerShell and Python agents
 
 #### Password Cracking
-- **[John the Ripper](https://www.openwall.com/john/)**: A fast password cracker, currently available for many flavors of Unix, Windows, DOS, and OpenVMS.
-- **[Hashcat](https://hashcat.net/hashcat/)**: The world's fastest and most advanced password recovery tool.
+- **[John the Ripper](https://www.openwall.com/john/)**: Fast password cracker for multiple platforms
+- **[Hashcat](https://hashcat.net/hashcat/)**: Advanced password recovery tool
 
 #### Vulnerability Scanning
-- **[Nessus](https://www.tenable.com/products/nessus)**: One of the most popular tools for vulnerability assessment, used to identify and fix security vulnerabilities.
-- **[OpenVAS](https://www.openvas.org/)**: An open-source vulnerability scanner.
+- **[Nessus](https://www.tenable.com/products/nessus)**: Popular vulnerability assessment tool
+- **[OpenVAS](https://www.openvas.org/)**: Open-source vulnerability scanner
 
 #### OSINT (Open Source Intelligence)
-- **[Maltego](https://www.maltego.com/)**: A powerful tool for link analysis and data mining in OSINT investigations.
-- **[theHarvester](https://github.com/laramies/theHarvester)**: A tool for gathering email addresses, subdomains, and other information from search engines.
+- **[Maltego](https://www.maltego.com/)**: Link analysis and data mining tool
+- **[theHarvester](https://github.com/laramies/theHarvester)**: Email and subdomain gathering tool
 
+### Practice Labs
 
-### More Hands-on Practice
+| Lab Name | Description | Difficulty |
+|----------|-------------|------------|
+| [DVWA](https://github.com/digininja/DVWA) | Basic application vulnerabilities | Beginner |
+| [BWAPP](http://www.itsecgames.com/) | Advanced web application vulnerabilities | Intermediate |
+| [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/) | Modern vulnerable web application | Beginner-Intermediate |
+| [WebGoat](https://owasp.org/www-project-webgoat/) | Deliberately insecure OWASP application | Beginner |
+| [Metasploitable2](https://sourceforge.net/projects/metasploitable/) | Vulnerable Linux VM for system-level testing | Intermediate |
+| [Hack The Box](https://www.hackthebox.com/) | Remote penetration testing platform | All Levels |
+| [Try Hack Me](https://tryhackme.com/) | Guided learning paths and challenges | All Levels |
+| [VulnHub](https://www.vulnhub.com/) | Collection of vulnerable VMs | All Levels |
+| [OverTheWire](https://overthewire.org/wargames/) | Security concept wargames | All Levels |
 
-| Lab Name | Description |
-|----------|-------------|
-| [DVWA](https://github.com/digininja/DVWA) | Here you will learn more about basic application vulnerabilities. |
-| [BWAPP](http://www.itsecgames.com/) | BWAPP (Bee-box Web Application Penetration Project) offers more vulnerabilities compared to DVWA, making it ideal for advanced learning. |
-| [OWASP Juice Shop](https://owasp.org/www-project-juice-shop/) | A modern, intentionally vulnerable web application for security training. Juice Shop covers a wide range of vulnerabilities and is a great tool for learning about web security. |
-| [WebGoat](https://owasp.org/www-project-webgoat/) | A deliberately insecure application created by OWASP, allowing developers to learn about security vulnerabilities in web applications. |
-| [Metasploitable2](https://sourceforge.net/projects/metasploitable/) | An intentionally vulnerable Linux virtual machine, which is great for learning about network and system-level vulnerabilities. |
-| [Hack The Box](https://www.hackthebox.com/) | A platform where you can practice on various machines remotely, without needing to set up a local environment. Access is provided through a VPN. |
-| [Try Hack Me](https://tryhackme.com/) | Similar to Hack The Box, Try Hack Me offers a variety of learning paths and challenges, with guided labs and more accessible content for beginners. |
-| [VulnHub](https://www.vulnhub.com/) | A collection of vulnerable virtual machines, designed for practicing penetration testing in a controlled environment. |
-| [OverTheWire](https://overthewire.org/wargames/) | A series of wargames that help you learn and practice security concepts in a fun and challenging way. |
+## 🤝 Contributing
 
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
-## License
+## 📄 License
 
 This repository is licensed under the GPL-3.0 license. See the [LICENSE](LICENSE) file for more information.
 
-## Contact
+## 📞 Contact
 
-For any inquiries or to connect with me, feel free to reach out on social media:
+For any inquiries or to connect with me, feel free to reach out:
 
 - **LinkedIn**: [Bayu Fedra](https://www.linkedin.com/in/bayufedra)
 - **Instagram**: [@bayufedraa](https://www.instagram.com/bayufedraa)
 - **Twitter/X**: [@bayufedraa](https://x.com/bayufedraa)
+- **Email**: [bayufedra@gmail.com](mailto:bayufedra@gmail.com)
 
-You can also [email me](mailto:bayufedra@gmail.com) for further questions.
+---
+
+⭐ **If you find this lab helpful, reccomend it to your friends!**

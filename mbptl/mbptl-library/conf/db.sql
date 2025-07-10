@@ -10,19 +10,29 @@ SET time_zone = "+00:00";
 CREATE DATABASE IF NOT EXISTS `administrator`;
 
 USE administrator;
-CREATE TABLE `users` (
+CREATE TABLE IF NOT EXISTS `users` (
   `id` int(30) NOT NULL AUTO_INCREMENT,
   `username` varchar(32) NOT NULL,
   `password` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-INSERT INTO `users` (`id`, `username`, `password`) VALUES
+-- Only insert if the table is empty
+INSERT IGNORE INTO `users` (`id`, `username`, `password`) VALUES
   (1, 'admin', 'b9f385c68320e27d5a4ea0618eef4a94');
 
-ALTER TABLE `users` ADD UNIQUE KEY `username` (`username`);
-
-
+-- Add unique key if it doesn't exist (check first to avoid duplicate key error)
+SET @sql = (SELECT IF(
+    (SELECT COUNT(*) FROM INFORMATION_SCHEMA.STATISTICS 
+     WHERE table_schema = 'administrator' 
+     AND table_name = 'users' 
+     AND index_name = 'username') = 0,
+    'ALTER TABLE `users` ADD UNIQUE KEY `username` (`username`);',
+    'SELECT "username key already exists" as message;'
+));
+PREPARE stmt FROM @sql;
+EXECUTE stmt;
+DEALLOCATE PREPARE stmt;
 
 -- Create a database (if not exists)
 CREATE DATABASE IF NOT EXISTS `bookstore`;
@@ -36,7 +46,8 @@ CREATE TABLE IF NOT EXISTS books (
     description TEXT DEFAULT NULL
 );
 
-INSERT INTO books (title, author, image, description) VALUES 
+-- Only insert if the table is empty
+INSERT IGNORE INTO books (title, author, image, description) VALUES 
   ('Howl''s Moving Castle', 'Diana Wynne Jones', 'howls_moving_castle.jpg', 'Howl''s Moving Castle is a captivating fantasy novel written by Diana Wynne Jones. It serves as the inspiration for the renowned Studio Ghibli animated film directed by Hayao Miyazaki. The story follows the adventures of Sophie, a young woman cursed by a witch and transformed into an elderly lady. She seeks refuge in the magical moving castle owned by the eccentric wizard Howl. As Sophie and Howl navigate a world filled with enchantment and turmoil, they discover the power of love, friendship, and self-acceptance.'),
   ('Spirited Away', 'Hayao Miyazaki', 'spirited_away.jpg', 'Spirited Away is the novel adaptation of the Studio Ghibli masterpiece, written by the acclaimed filmmaker Hayao Miyazaki. Dive into the enchanting tale of Chihiro, a young girl who finds herself trapped in a mysterious and magical world. As she navigates through challenges and encounters fascinating characters, Chihiro embarks on a transformative journey of self-discovery and courage. The novel delves deeper into the rich narrative and themes that have made Spirited Away a timeless classic.'),
   ('My Neighbor Totoro', 'Hayao Miyazaki', 'my_neighbor_totoro.jpg', 'My Neighbor Totoro, based on the beloved Studio Ghibli film, is a heartwarming children''s book written by Hayao Miyazaki. Join the delightful adventures of two sisters, Satsuke and Mei, as they move to the countryside and befriend the lovable forest spirit Totoro. This enchanting tale captures the magic of childhood and the wonders of the natural world. The novel provides a closer look at the endearing characters and the whimsical world of Totoro.'),

@@ -1,56 +1,35 @@
-# version: "3.8"
 services:
-  db:
-    container_name: mbptl-db
+  mbptl-library:
     build:
-      context: database
+      context: mbptl-library
       dockerfile: Dockerfile
-    ports:
-      - "127.0.0.1:3306:3306"
-    command: --default-authentication-plugin=mysql_native_password
+    container_name: mbptl-library
     environment:
-      MYSQL_USER: library
-      MYSQL_PASSWORD: p@ssw0rd123
-      MYSQL_ROOT_PASSWORD: rootp@ssw0rd123
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     volumes:
-      - ./database/dump:/docker-entrypoint-initdb.d
-      - ./database/conf:/etc/mysql/conf.d
-      - persistent:/var/lib/mysql
-    networks:
-      - default
-    restart: always
-
-  bookstore:
-    container_name: mbptl-bookstore
-    build:
-      context: bookstore
-      dockerfile: Dockerfile
+      - db_data:/var/lib/mysql
     ports:
-      - "80:80"
-    volumes:
-      - ./bookstore/www/:/var/www/html/
-    links:
-      - db
-    depends_on:
-      - db
-    networks:
-      - default
-    restart: always
+      - "${WEB1_PORT:-80}:80"
+      - "${WEB2_PORT:-8080}:8080"
+      - "127.0.0.1:${DB_PORT:-3306}:3306"
+    command: /start.sh
+    restart: unless-stopped
 
-  administrator:
-    container_name: mbptl-administrator
+  mbptl-internal:
     build:
-      context: administrator
+      context: mbptl-internal
       dockerfile: Dockerfile
+    container_name: mbptl-internal
     ports:
-      - "8080:80"
+      - "127.0.0.1:${WEB_INTERNAL_PORT:-1337}:1337"
     links:
-      - db
+      - mbptl-library
     depends_on:
-      - db
-    networks:
-      - default
-    restart: always
+      - mbptl-library
+    restart: unless-stopped
 
 volumes:
-  persistent:
+  db_data:
