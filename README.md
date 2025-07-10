@@ -14,8 +14,8 @@ This lab is designed to be very straightforward to introduce what steps can be t
   - [Windows](#windows)
   - [macOS](#macos)
 - [Deployment](#deployment)
-- [Environment Variables](#environment-variables)
 - [Lab Structure](#lab-structure)
+- [Environment Variables](#environment-variables)
 - [Write-up](#write-up)
 - [Troubleshooting](#troubleshooting)
 - [Next Steps](#next-steps)
@@ -35,6 +35,7 @@ In this lab, you will learn fundamental penetration testing concepts:
 - **Exploitation** - Exploiting vulnerable applications
 - **Password Cracking** - Breaking authentication mechanisms
 - **Post Exploitation** - Maintaining access and privilege escalation
+- **Pivoting** - Moving between networks and accessing internal systems
 
 ## 📋 Prerequisites
 
@@ -53,9 +54,13 @@ git clone https://github.com/bayufedra/MBPTL
 # Navigate to the lab directory
 cd MBPTL/mbptl/
 
-# Deploy the lab
+# Deploy the lab (Docker will automatically pull images from Docker Hub)
 docker compose up -d
 ```
+
+**Note:** The lab now uses pre-built Docker images from Docker Hub for easier setup. Docker will automatically pull the required images:
+- `bayufedra/mbptl-main:latest`
+- `bayufedra/mbptl-internal:latest`
 
 ## 💻 Installation Requirements
 
@@ -108,12 +113,44 @@ git clone https://github.com/bayufedra/MBPTL
 ### Step 2: Deploy the Lab
 ```bash
 cd MBPTL/mbptl/
-docker compose up -d --build
+docker compose up -d
 ```
+
+Docker will automatically pull the required images from Docker Hub:
+- `bayufedra/mbptl-main:latest`
+- `bayufedra/mbptl-internal:latest`
 
 ### Step 3: Verify Deployment
 Once deployed, you should be able to access:
 - Main application: `http://{MACHINE_IP:-127.0.0.1}:80`
+- Administrator panel: `http://{MACHINE_IP:-127.0.0.1}:8080/administrator/`
+- Internal service: `http://127.0.0.1:1337/` (accessible after pivoting)
+
+## 🏛️ Lab Structure
+
+The lab consists of two containers that simulate a real-world network environment:
+
+### Main Container (`mbptl-main`)
+- **Purpose**: Primary target with web applications
+- **Services**: 
+  - Web application with SQL injection vulnerability (Port 80)
+  - Administrator panel with file upload vulnerability (Port 8080)
+  - MySQL database (Port 3306)
+- **Objective**: Initial compromise and privilege escalation
+
+### Internal Container (`mbptl-internal`)
+- **Purpose**: Secondary target in internal network
+- **Services**: 
+  - Flask web application with template injection vulnerability (Port 1337)
+- **Objective**: Pivoting target after compromising the main container
+- **Access**: Only accessible from within the main container's network
+
+### Learning Path
+1. **Reconnaissance** → Discover open ports and services
+2. **Vulnerability Analysis** → Identify SQL injection in main application
+3. **Exploitation** → Extract credentials and gain initial access
+4. **Post Exploitation** → Upload shell and escalate privileges
+5. **Pivoting** → Access internal network and compromise secondary target
 
 ## ⚙️ Environment Variables
 
@@ -144,6 +181,16 @@ docker ps -a
 
 # Restart containers
 docker compose down
+docker compose up -d
+```
+
+**Docker images not pulling:**
+```bash
+# Manually pull the images
+docker pull bayufedra/mbptl-main:latest
+docker pull bayufedra/mbptl-internal:latest
+
+# Then start the services
 docker compose up -d
 ```
 
