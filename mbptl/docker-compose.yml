@@ -3,7 +3,7 @@ services:
     build:
       context: mbptl-main
       dockerfile: Dockerfile
-    # image: bayufedra/mbptl-main:latest
+    image: bayufedra/mbptl-main:latest
     container_name: mbptl-main
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -23,7 +23,7 @@ services:
     build:
       context: mbptl-internal
       dockerfile: Dockerfile
-    # image: bayufedra/mbptl-internal:latest
+    image: bayufedra/mbptl-internal:latest
     container_name: mbptl-internal
     ports:
       - "127.0.0.1:${WEB_INTERNAL_PORT:-1337}:1337"
