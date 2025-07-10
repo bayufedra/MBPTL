@@ -1,9 +1,9 @@
 services:
-  mbptl-library:
+  main:
     build:
-      context: mbptl-library
+      context: mbptl-main
       dockerfile: Dockerfile
-    container_name: mbptl-library
+    container_name: mbptl-main
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
@@ -18,7 +18,7 @@ services:
     command: /start.sh
     restart: unless-stopped
 
-  mbptl-internal:
+  internal:
     build:
       context: mbptl-internal
       dockerfile: Dockerfile
@@ -26,9 +26,9 @@ services:
     ports:
       - "127.0.0.1:${WEB_INTERNAL_PORT:-1337}:1337"
     links:
-      - mbptl-library
+      - main
     depends_on:
-      - mbptl-library
+      - main
     restart: unless-stopped
 
 volumes:
