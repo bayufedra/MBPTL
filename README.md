@@ -2,12 +2,16 @@
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-green.svg)](https://opensource.org/licenses/GPL-3.0)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
+<<<<<<< HEAD
 [![Python](https://img.shields.io/badge/Python-3.x-yellow.svg)](https://www.python.org/)
+=======
+>>>>>>> 76cd1b3 (MBPTL Update)
 
 A straightforward penetration testing lab designed for newcomers who want to learn cybersecurity, especially in the penetration testing field. This is a self-deployed lab that runs inside Docker and is very easy to set up.
 
 This lab is designed to be very straightforward to introduce what steps can be taken during penetration testing and the tools related to these steps.
 
+<<<<<<< HEAD
 ## 🎯 What You'll Learn
 
 In this lab, you will learn fundamental penetration testing concepts:
@@ -40,6 +44,8 @@ cd MBPTL/mbptl/
 docker compose up -d
 ```
 
+=======
+>>>>>>> 76cd1b3 (MBPTL Update)
 ## 📖 Table of Contents
 
 - [Installation Requirements](#installation-requirements)
@@ -59,8 +65,44 @@ docker compose up -d
 - [License](#license)
 - [Contact](#contact)
 
+<<<<<<< HEAD
 ## 💻 Installation Requirements
 
+=======
+## 🎯 What You'll Learn
+
+In this lab, you will learn fundamental penetration testing concepts:
+
+- **Reconnaissance** - Information gathering and target enumeration
+- **Vulnerability Analysis** - Identifying security weaknesses
+- **Exploitation** - Exploiting vulnerable applications
+- **Password Cracking** - Breaking authentication mechanisms
+- **Post Exploitation** - Maintaining access and privilege escalation
+
+## 📋 Prerequisites
+
+Before starting this lab, you should have:
+
+- Basic understanding of Linux command line
+- Familiarity with networking concepts
+- Knowledge of web technologies (PHP, SQL)
+
+## 🚀 Quick Start
+
+```bash
+# Clone the repository
+git clone https://github.com/bayufedra/MBPTL
+
+# Navigate to the lab directory
+cd MBPTL/mbptl/
+
+# Deploy the lab
+docker compose up -d
+```
+
+## 💻 Installation Requirements
+
+>>>>>>> 76cd1b3 (MBPTL Update)
 ### Linux
 
 #### Installing Docker
@@ -110,9 +152,46 @@ git clone https://github.com/bayufedra/MBPTL
 ### Step 2: Deploy the Lab
 ```bash
 cd MBPTL/mbptl/
+docker compose up -d --build
+```
+
+### Step 3: Verify Deployment
+Once deployed, you should be able to access:
+- Main application: `http://{MACHINE_IP:-127.0.0.1}:80`
+
+## ⚙️ Environment Variables
+
+### Database Configuration
+- `MYSQL_ROOT_PASSWORD`: Root password for MySQL database
+- `MYSQL_DATABASE`: Database name
+- `MYSQL_USER`: Database user
+- `MYSQL_PASSWORD`: Database user password
+
+### Port Configuration
+- `WEB1_PORT`: Port for web interface (default: 80)
+- `WEB2_PORT`: Port for API (default: 8080)
+- `DB_PORT`: Port for database (default: 3306)
+- `WEB_INTERNAL_PORT`: Port for internal service (default: 1337)
+
+## 📝 Write-up
+
+You can read the [Write-up](writeup/README.md) for detailed solutions and walkthroughs of this lab.
+
+## 🔧 Troubleshooting
+
+### Common Issues
+
+**Docker containers not starting:**
+```bash
+# Check Docker status
+docker ps -a
+
+# Restart containers
+docker compose down
 docker compose up -d
 ```
 
+<<<<<<< HEAD
 ### Step 3: Verify Deployment
 Once deployed, you should be able to access:
 - Main application: `http://localhost:80`
@@ -159,6 +238,17 @@ docker compose up -d
 sudo usermod -aG docker $USER
 ```
 
+=======
+**Port conflicts:**
+- If ports 80 or 8080 are already in use, modify the `docker-compose.yml` file to use different ports.
+
+**Permission issues:**
+```bash
+# On Linux/macOS, ensure your user is in the docker group
+sudo usermod -aG docker $USER
+```
+
+>>>>>>> 76cd1b3 (MBPTL Update)
 ## 🎓 Next Steps
 
 Remember that this lab is the first step in learning penetration testing. It gives you an overview of what we do in penetration testing. After completing this lab, you can continue learning with other resources:
