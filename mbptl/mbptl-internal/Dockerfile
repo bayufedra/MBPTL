@@ -1,15 +1,14 @@
-FROM python:3.11-slim
+FROM ubuntu:22.04
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
+RUN apt-get update && apt-get install -y socat && rm -rf /var/lib/apt/lists/*
 
-# Copy the current directory contents into the container at /usr/src/app
-COPY app.py .
+COPY main /
 COPY flag.txt /
 
-# Install the required packages
-RUN pip install flask
+RUN chmod 555 /main && chown nobody:nogroup /main /flag.txt
+
 USER nobody
 
-# Command to run the Flask app
-CMD ["python", "app.py"]
+EXPOSE 31337
+
+ENTRYPOINT ["socat", "tcp-l:31337,reuseaddr,fork", "exec:/main"]

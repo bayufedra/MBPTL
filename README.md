@@ -36,6 +36,8 @@ In this lab, you will learn fundamental penetration testing concepts:
 - **Password Cracking** - Breaking authentication mechanisms
 - **Post Exploitation** - Maintaining access and privilege escalation
 - **Pivoting** - Moving between networks and accessing internal systems
+- **Reverse Engineering** - Analyzing software to understand its functionality and identify vulnerabilities
+- **Binary Exploitation** - Exploiting memory corruption vulnerabilities in compiled programs
 
 ## 📋 Prerequisites
 
@@ -61,6 +63,7 @@ docker compose up -d
 **Note:** The lab now uses pre-built Docker images from Docker Hub for easier setup. Docker will automatically pull the required images:
 - `bayufedra/mbptl-main:latest`
 - `bayufedra/mbptl-internal:latest`
+- `bayufedra/mbptl-app:latest`
 
 ## 💻 Installation Requirements
 
@@ -73,7 +76,8 @@ curl -s https://get.docker.com/ | sudo sh -
 
 #### Installing Git
 ```bash
-sudo apt install git
+sudo apt update
+sudo apt install git -y
 ```
 
 ### Windows
@@ -119,16 +123,18 @@ docker compose up -d
 Docker will automatically pull the required images from Docker Hub:
 - `bayufedra/mbptl-main:latest`
 - `bayufedra/mbptl-internal:latest`
+- `bayufedra/mbptl-app:latest`
 
 ### Step 3: Verify Deployment
 Once deployed, you should be able to access:
 - Main application: `http://{MACHINE_IP:-127.0.0.1}:80`
 - Administrator panel: `http://{MACHINE_IP:-127.0.0.1}:8080/administrator/`
-- Internal service: `http://127.0.0.1:1337/` (accessible after pivoting)
+- Internal Service: `tcp://127.0.0.1:31337/` (accessible after pivoting)
+- Web Internal service: `http://127.0.0.1:5000/` (accessible after pivoting)
 
 ## 🏛️ Lab Structure
 
-The lab consists of two containers that simulate a real-world network environment:
+The lab consists of three containers that simulate a real-world network environment:
 
 ### Main Container (`mbptl-main`)
 - **Purpose**: Primary target with web applications
@@ -139,9 +145,16 @@ The lab consists of two containers that simulate a real-world network environmen
 - **Objective**: Initial compromise and privilege escalation
 
 ### Internal Container (`mbptl-internal`)
-- **Purpose**: Secondary target in internal network
+- **Purpose**: Internal service target in the network
 - **Services**: 
-  - Flask web application with template injection vulnerability (Port 1337)
+  - Custom binary service with buffer overflow vulnerability (Port 31337)
+- **Objective**: Binary exploitation and reverse engineering
+- **Access**: Only accessible from within the main container's network
+
+### Web Internal Container (`mbptl-app`)
+- **Purpose**: Third target in internal network
+- **Services**: 
+  - Flask web application with template injection vulnerability (Port 5000)
 - **Objective**: Pivoting target after compromising the main container
 - **Access**: Only accessible from within the main container's network
 
@@ -150,9 +163,13 @@ The lab consists of two containers that simulate a real-world network environmen
 2. **Vulnerability Analysis** → Identify SQL injection in main application
 3. **Exploitation** → Extract credentials and gain initial access
 4. **Post Exploitation** → Upload shell and escalate privileges
-5. **Pivoting** → Access internal network and compromise secondary target
+5. **Pivoting** → Access internal network and compromise secondary targets
+6. **Binary Exploitation** → Exploit buffer overflow in internal service
+7. **Reverse Engineering** → Analyze and understand the vulnerable binary
 
 ## ⚙️ Environment Variables
+
+You can configure the lab by creating a `.env` file in the `mbptl/` directory or by setting environment variables directly. Here are the available configuration options:
 
 ### Database Configuration
 - `MYSQL_ROOT_PASSWORD`: Root password for MySQL database
@@ -164,7 +181,8 @@ The lab consists of two containers that simulate a real-world network environmen
 - `WEB1_PORT`: Port for web interface (default: 80)
 - `WEB2_PORT`: Port for API (default: 8080)
 - `DB_PORT`: Port for database (default: 3306)
-- `WEB_INTERNAL_PORT`: Port for internal service (default: 1337)
+- `SERVICE_INTERNAL_PORT`: Port for internal binary service (default: 31337)
+- `WEB_INTERNAL_PORT`: Port for internal web service (default: 5000)
 
 ## 📝 Write-up
 
@@ -189,6 +207,7 @@ docker compose up -d
 # Manually pull the images
 docker pull bayufedra/mbptl-main:latest
 docker pull bayufedra/mbptl-internal:latest
+docker pull bayufedra/mbptl-app:latest
 
 # Then start the services
 docker compose up -d
@@ -286,4 +305,4 @@ For any inquiries or to connect with me, feel free to reach out:
 
 ---
 
-⭐ **If you find this lab helpful, reccomend it to your friends!**
+⭐ **If you find this lab helpful, recommend it to your friends!**

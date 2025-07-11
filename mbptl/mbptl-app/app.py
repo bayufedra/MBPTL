@@ -5,7 +5,7 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     name = request.args.get('name', 'World! (/?name=)')
-    return render_template_string("Hello, %s" %name)
+    return render_template_string("<h1>MBPTL - Internal Web Service</h1><br><p>Hello, %s</p>" %name)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=1337)
+    app.run(host='0.0.0.0', port=5000)
