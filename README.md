@@ -120,11 +120,6 @@ cd MBPTL/mbptl/
 docker compose up -d
 ```
 
-Docker will automatically pull the required images from Docker Hub:
-- `bayufedra/mbptl-main:latest`
-- `bayufedra/mbptl-internal:latest`
-- `bayufedra/mbptl-app:latest`
-
 ### Step 3: Verify Deployment
 Once deployed, you should be able to access:
 - Main application: `http://{MACHINE_IP:-127.0.0.1}:80`
