@@ -404,6 +404,22 @@ cat root.txt
 
 After gaining root access to the main server, we can now pivot to access the internal network and discover other machines. Pivoting is a technique used to move from one compromised system to another system that is not directly accessible from the original attack vector.
 
+### Pivoting Setup
+After gaining root access to the server, we can install additional tools for better pivoting capabilities. This setup enhances our ability to explore the internal network and maintain stable connections.
+
+#### Installing Essential Tools
+```bash
+apt install -y python3 netcat nmap
+```
+
+
+### Spawn Interactive Shell
+The current shell is likely limited and non-interactive. Here are several methods to spawn a fully interactive shell:
+
+```bash
+python3 -c "import pty; pty.spawn('/bin/bash')"
+```
+
 ### Network Discovery
 From our root shell, let's discover what other systems are on the internal network:
 
