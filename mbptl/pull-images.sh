@@ -9,6 +9,9 @@ docker pull bayufedra/mbptl-main:latest
 echo "Pulling mbptl-internal image..."
 docker pull bayufedra/mbptl-internal:latest
 
+echo "Pulling mbptl-app image..."
+docker pull bayufedra/mbptl-app:latest
+
 echo "================================"
 echo "Images pulled successfully!"
-echo "You can now run: docker compose up -d" 
+echo "You can now run: docker compose up -d"
