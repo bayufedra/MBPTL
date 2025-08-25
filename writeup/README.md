@@ -1,5 +1,4 @@
 # Write Up: Most Basic Penetration Testing Labs (MBPTL)
-==============
 ***Self-deployed straightforward hacking lab machine designed for newcomers who want to learn Penetration Testing, running inside Docker for easy setup.***
 
 **Repository:** *https://github.com/bayufedra/MBPTL/*
@@ -485,6 +484,8 @@ Since we have root access on the main container, we can also try to access the i
 ## Internal Service Exploitation: mbptl-internal (Buffer Overflow)
 
 After pivoting to the internal network, we discovered a service running on port 31337 inside the `mbptl-internal` container. This service is a custom C binary (`main`).
+
+We can analyze how program work by analyzing given binary with the name **mbptl-internal_binary**
 
 ### Vulnerability Analysis
 - The program uses `gets()` to read user input into a 128-byte buffer, making it vulnerable to a classic buffer overflow.
