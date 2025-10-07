@@ -7,6 +7,8 @@ A straightforward penetration testing lab designed for newcomers who want to lea
 
 This lab is designed to be very straightforward to introduce what steps can be taken during penetration testing and the tools related to these steps.
 
+You can read the [Write-up](writeup/README.md) for detailed solutions and walkthroughs of this lab. If you’re new to cybersecurity, it’s highly recommended to start by reading and following the steps in the Write-Up. Don’t worry if you don’t fully understand everything at first because this lab is designed to introduce the fundamental tools, concepts, and workflows commonly used in cybersecurity and penetration testing. The goal is to help you become familiar with the topics and tools involved, even if you’re still learning.
+
 ## 📖 Table of Contents
 
 - [Installation Requirements](#installation-requirements)
@@ -301,3 +303,4 @@ For any inquiries or to connect with me, feel free to reach out:
 ---
 
 ⭐ **If you find this lab helpful, recommend it to your friends!**
+
