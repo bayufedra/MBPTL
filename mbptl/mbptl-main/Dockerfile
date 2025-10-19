@@ -4,14 +4,15 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Update and install necessary packages
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install -y --no-install-recommends \
     apache2 \
-    php \
     curl \
     libapache2-mod-php \
     php-mysql \
     mysql-server \
-    && apt-get clean
+    && apt-get clean \
+    && apt-get purge -y --auto-remove build-essential \
+    && rm -rf /var/lib/apt/lists/* /var/cache/apt
 
 # Enable Apache mod_rewrite
 RUN a2enmod rewrite
@@ -41,16 +42,21 @@ RUN chmod 000 /flag/root.txt
 
 # Copy rootkit
 COPY ./localdata/pe/rootkit /bin/bahs
-RUN chmod 777 /bin/bahs
+RUN chmod 755 /bin/bahs
 RUN chmod +s /bin/bahs
 
 # Set permissions and ownership after all files are in place
 RUN chown -R www-data:www-data administrator/uploads/
-RUN chmod -R 777 administrator/uploads/
+RUN chmod -R 755 administrator/uploads/
 
 # Create a startup script to start MySQL and Apache2
 COPY ./start.sh /start.sh
 RUN chmod +x /start.sh
+
+# Create SOC PoV detect log
+RUN echo "FLAG10='MBPTL-10{c1835d7d28a5394b38cfbf6f813a1553}'" >> /var/log/apache2/access.log
+RUN echo "FLAG11='MBPTL-11{c2090290b9012cd448129e26626c8cde}'" >> /root/.bash_history
+RUN echo "FLAG12='MBPTL-12{a475806f05e0416bcd8cde2d02dfde95}'" >> /root/.bashrc
 
 # Expose the necessary ports
 EXPOSE 80 8080 3306

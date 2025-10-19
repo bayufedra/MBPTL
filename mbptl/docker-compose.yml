@@ -3,6 +3,7 @@ services:
     build:
       context: mbptl-main
       dockerfile: Dockerfile
+    platform: linux/amd64
     image: bayufedra/mbptl-main:latest
     container_name: mbptl-main
     environment:
@@ -23,6 +24,7 @@ services:
     build:
       context: mbptl-internal
       dockerfile: Dockerfile
+    platform: linux/amd64
     image: bayufedra/mbptl-internal:latest
     container_name: mbptl-internal
     ports:
@@ -37,6 +39,7 @@ services:
     build:
       context: mbptl-app
       dockerfile: Dockerfile
+    platform: linux/amd64
     image: bayufedra/mbptl-app:latest
     container_name: mbptl-app
     ports:

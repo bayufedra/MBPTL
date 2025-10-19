@@ -37,6 +37,7 @@
       <?php
         if ($result === false) {
             echo "Error: " . $conn->error;
+            echo "<p>MBPTL-5{4bcce60b74914398c04eb5b546995408}</p>";
         } else {
             if ($row) {
                 echo "<h3>Title: " . $row["title"] . "</h3>";

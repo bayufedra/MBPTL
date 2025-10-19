@@ -1,15 +1,32 @@
-FROM python:3.11-slim
+# Build stage
+FROM python:3.11-alpine AS builder
 
-# Set the working directory in the container
+# Install build dependencies
+RUN apk add --no-cache build-base
+
 WORKDIR /usr/src/app
 
-# Copy the current directory contents into the container at /usr/src/app
-COPY app.py .
-COPY flag.txt /
+# Final stage
+FROM python:3.11-alpine
 
-# Install the required packages
-RUN pip install flask
+# Copy Python runtime environment from builder
+COPY --from=builder /usr/local /usr/local
+
+# Set working directory
+WORKDIR /usr/src/app
+
+# Copy application files
+COPY app.py .
+COPY flag.txt /flag.txt
+
+# Install dependencies without cache
+RUN pip install --no-cache-dir flask
+
+# Use non-root user for security
 USER nobody
 
-# Command to run the Flask app
-CMD ["python", "app.py"]
+# Expose Flask default port (optional)
+EXPOSE 5000
+
+# Set entrypoint
+ENTRYPOINT ["python", "app.py"]

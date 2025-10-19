@@ -19,7 +19,17 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 -- Only insert if the table is empty
 INSERT IGNORE INTO `users` (`id`, `username`, `password`) VALUES
-  (1, 'admin', 'b9f385c68320e27d5a4ea0618eef4a94');
+  (1, 'admin', '8a24367a1f46c141048752f2d5bbd14b');
+
+CREATE TABLE IF NOT EXISTS `flag` (
+  `id` int(30) NOT NULL AUTO_INCREMENT,
+  `flag` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+-- Only insert if the table is empty
+INSERT IGNORE INTO `flag` (`id`, `flag`) VALUES
+  (1, 'MBPTL-6{9fce407640f5425f688c98039bc67ee6}');
 
 -- Add unique key if it doesn't exist (check first to avoid duplicate key error)
 SET @sql = (SELECT IF(
