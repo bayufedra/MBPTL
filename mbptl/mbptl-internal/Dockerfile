@@ -13,7 +13,8 @@ RUN apt-get update \
 # copy your challenge binary
 COPY main /main
 COPY flag.txt /flag.txt
-RUN chmod 755 /main && chown nobody:nogroup /main /flag.txt
+COPY flag16.txt /flag16.txt
+RUN chmod 755 /main && chown nobody:nogroup /main /flag.txt /flag16.txt
 
 # run as nobody by default (changeable)
 USER nobody:nogroup
