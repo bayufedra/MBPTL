@@ -58,8 +58,7 @@ install_dependencies() {
             print_status "Updating package list..."
             if command_exists apt-get; then
                 sudo apt-get update
-                sudo apt-get install -y git
-                curl -s https://get.docker.com/ | sudo sh -
+                sudo apt-get install -y git docker.io docker-compose-plugin
             elif command_exists yum; then
                 sudo yum update -y
                 sudo yum install -y git docker docker-compose
