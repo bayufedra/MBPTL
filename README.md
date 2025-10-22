@@ -2,6 +2,8 @@
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-green.svg)](https://opensource.org/licenses/GPL-3.0)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
+[![Black Hat Arsenal EU 2025](https://img.shields.io/badge/Black%20Hat%20Arsenal-EU%202025-red.svg)](https://www.blackhat.com/eu-25/arsenal/schedule/#mbptl---most-basic-penetration-testing-lab-48622)
+
 
 A straightforward penetration testing lab designed for newcomers who want to learn cybersecurity, especially in the penetration testing field. This is a self-deployed lab that runs inside Docker and is very easy to set up.
 
@@ -224,17 +226,11 @@ sudo usermod -aG docker $USER
 Remember that this lab is the first step in learning penetration testing. It gives you an overview of what we do in penetration testing. After completing this lab, you can continue learning with other resources:
 
 ### Fundamental Knowledge
-
 - **Operating Systems**: Understanding how processes, files, and access rights are managed is essential. Mastery of Linux and Windows helps identify vulnerabilities like privilege escalation, rootkits, or malware.
-
 - **Networking**: All data transfers through networks. Understanding networking fundamentals helps identify vulnerabilities like sniffing, man-in-the-middle (MitM) attacks, DDoS, or port scanning.
-
 - **Programming**: All computer services are built using programming languages. Understanding programming helps find vulnerabilities like SQL injection, buffer overflow, or cross-site scripting (XSS).
-
 - **Cryptography**: Understanding encryption, hashing, and cryptographic methods helps identify weaknesses in encryption implementations and prevent attacks like brute-force and side-channel attacks.
-
 - **CWE (Common Weakness Enumeration)**: A list of common software weaknesses that helps identify patterns like poor input validation, memory management errors, or configuration mistakes.
-
 - **CVE (Common Vulnerabilities and Exposures)**: A list of publicly known vulnerabilities that helps stay informed about the latest threats and apply necessary patches.
 
 ### Recommended Tools
@@ -303,4 +299,3 @@ For any inquiries or to connect with me, feel free to reach out:
 ---
 
 ⭐ **If you find this lab helpful, recommend it to your friends!**
-
