@@ -120,7 +120,7 @@ docker compose up -d
 ```
 
 **Port conflicts:**
-- If ports 80, 8080, or 3306 are in use, modify the `docker-compose.yml` file or use different ports.
+- If ports 80, 8080, or 3306 are in use, modify the `.env` file or use different ports.
 
 **Permission issues (Linux/macOS):**
 ```bash
