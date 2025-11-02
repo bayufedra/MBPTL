@@ -4,7 +4,6 @@
 
 - **Repository:** https://github.com/bayufedra/MBPTL
 - **Author:** Bayu Fedra
-- **Lab Access:** http://localhost:80
 
 ---
 
@@ -29,67 +28,6 @@
 ## Introduction
 
 This write-up provides a complete, step-by-step walkthrough of the MBPTL penetration testing lab. The lab simulates a realistic multi-container environment with web applications, databases, and internal services. Throughout this journey, you'll discover 17 flags while learning fundamental penetration testing techniques.
-
-**⚠️ Prerequisites:**
-- Docker and Docker Compose installed
-- Basic familiarity with Linux command line
-- Understanding of HTTP and web protocols
-- Patience and willingness to learn!
-
----
-
-## Lab Overview
-
-MBPTL consists of **3 interconnected Docker containers**:
-
-### 🎯 **Main Container** (`mbptl-main`)
-- **Port 80**: Bookstore web application with SQL injection vulnerability
-- **Port 8080**: Administrator panel with file upload vulnerability
-- **Port 3306**: MySQL database
-- **Objective**: Initial compromise, privilege escalation, and pivoting point
-
-### 🔒 **Internal Container** (`mbptl-internal`)
-- **Port 31337**: Custom binary service vulnerable to buffer overflow
-- **Objective**: Binary exploitation and reverse engineering
-
-### 🌐 **Web Internal Container** (`mbptl-app`)
-- **Port 5000**: Flask application vulnerable to Server-Side Template Injection (SSTI)
-- **Objective**: Advanced web exploitation through network pivoting
-
----
-
-## Setup Instructions
-
-### Quick Start
-
-```bash
-# Clone the repository
-git clone https://github.com/bayufedra/MBPTL
-cd MBPTL
-
-# Run automated setup (recommended)
-chmod +x setup.sh
-./setup.sh
-
-# OR manually start the lab
-cd mbptl/
-docker compose up -d
-```
-
-### Verify Installation
-
-```bash
-# Check running containers
-docker ps
-
-# You should see 3 containers:
-# - mbptl-main
-# - mbptl-internal
-# - mbptl-app
-
-# Access the main application
-curl http://localhost:80
-```
 
 ---
 
@@ -1309,54 +1247,6 @@ MBPTL-17{03762a502a18e260a47da040eaae38fa}
 - **struct** (Python): Binary data packing
 - **objdump**: Assembly code analysis
 
----
-
-## 🎓 Conclusion
-
-Congratulations on completing the MBPTL lab! You've successfully:
-
-✅ Performed reconnaissance and enumeration  
-✅ Discovered and exploited SQL injection  
-✅ Cracked password hashes  
-✅ Uploaded and executed web shells  
-✅ Escalated privileges to root  
-✅ Performed network pivoting  
-✅ Exploited Server-Side Template Injection  
-✅ Conducted binary analysis and exploitation  
-✅ Analyzed security from a SOC perspective  
-
-### 🌟 Next Steps
-
-To continue your cybersecurity journey:
-
-1. **Practice Platforms**:
-   - [TryHackMe](https://tryhackme.com/) - Guided learning paths
-   - [HackTheBox](https://www.hackthebox.com/) - Real-world scenarios
-   - [OverTheWire](https://overthewire.org/) - Wargames
-   - [VulnHub](https://www.vulnhub.com/) - Vulnerable VMs
-   - [DVWA](https://github.com/digininja/DVWA) - Web vulnerabilities
-
-2. **Learn Advanced Topics**:
-   - Advanced binary exploitation
-   - Web application security
-   - Network penetration testing
-   - Red team methodologies
-   - Blue team/SOC operations
-
-3. **Certifications**:
-   - eJPT (eLearnSecurity Junior Penetration Tester)
-   - PNPT (Practical Network Penetration Tester)
-   - OSCP (Offensive Security Certified Professional)
-
-4. **Communities**:
-   - Join cybersecurity forums
-   - Participate in CTF competitions
-   - Contribute to open-source security tools
-   - Attend security conferences
-
----
-
-**Remember**: Use your skills responsibly and ethically. Always obtain proper authorization before testing systems.
 
 **Happy Hacking! 🚀**
 
