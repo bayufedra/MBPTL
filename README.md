@@ -6,11 +6,12 @@
 
 > **🎯 Perfect for beginners!** A comprehensive, hands-on penetration testing lab designed to teach cybersecurity fundamentals through practical exercises.
 
-**If you're new to cybersecurity**, start with the [**Write-up Guide**](writeup/README.md) which provides step-by-step solutions. Don't worry if you don't understand everything at first because this lab is designed to introduce fundamental tools, concepts, and workflows commonly used in cybersecurity and penetration testing. The goal is to help you become familiar with the topics and tools involved, even if you're still learning.
+**Getting started?** Follow the [**Task Guide**](TASK.md) to understand how to collect all 17 flags. **Need detailed solutions?** Check out the [**Write-up Guide**](writeup/README.md) for step-by-step instructions. Don't worry if you don't understand everything at first because this lab is designed to introduce fundamental tools, concepts, and workflows commonly used in cybersecurity and penetration testing. The goal is to help you become familiar with the topics and tools involved, even if you're still learning.
 
 ## 📖 Table of Contents
 
 - [Quick Start](#-quick-start)
+- [Task Guide](#-task-guide)
 - [What You'll Learn](#-what-youll-learn)
 - [Prerequisites](#-prerequisites)
 - [Installation](#-installation)
@@ -30,6 +31,12 @@ docker compose up -d
 ```
 
 **Access your lab:**  http://localhost:80
+
+## 📋 Task Guide
+
+**📖 Read [TASK.md](TASK.md) to understand the complete flag collection process!**
+
+The task guide provides an overview of all 17 flags organized by penetration testing phases, helping you understand what to look for as you progress through the lab. Use it alongside your reconnaissance and exploitation efforts.
 
 ## 📚 What You'll Learn
 
