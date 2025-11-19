@@ -16,6 +16,7 @@ All notable changes to the Most Basic Penetration Testing Lab (MBPTL) will be do
 - **Password Enhancement**: Administrator password now in rockyou.txt wordlist
 - **Buffer Overflow Challenge**: Simplified binary exploitation (removed ROP requirement)
 - **Documentation**: Enhanced README.md with installation guides for Linux, Windows, and macOS
+- **Restriction**: Limit access to Docker network only; disable localhost for mbptl-app and mbptl-internal
 
 ## [2.0.0] - 2025-07-10
 
