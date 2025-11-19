@@ -810,7 +810,7 @@ PORT      STATE SERVICE
 
 **Steps:**
 
-1. **Access the internal service**:
+1. **Access the internal service** (from the compromised `mbptl-main` shell, since the port is not exposed to the host):
    ```bash
    curl http://mbptl-app:5000/
    ```
@@ -841,7 +841,7 @@ PORT      STATE SERVICE
 
 **Objective:** Exploit the SSTI vulnerability to execute commands.
 
-**Method:** Inject malicious template code.
+**Method:** Inject malicious template code (run all requests from inside the Docker network/pivoted shell).
 
 **Steps:**
 
@@ -1065,14 +1065,9 @@ MBPTL-15{cb4ca713115bfa8691b8577187a747e0}
    nmap -sn 172.17.0.0/16 | grep mbptl-internal
    ```
 
-2. **Connect to the service**:
+2. **Connect to the service** (from a shell on `mbptl-main` or another pivoted host):
    ```bash
    nc mbptl-internal 31337
-   ```
-
-   Or from host machine:
-   ```bash
-   nc localhost 31337
    ```
 
 **Output:**

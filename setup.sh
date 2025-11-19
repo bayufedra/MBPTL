@@ -196,8 +196,8 @@ check_ports() {
     
     # If no ports found in .env, use defaults
     if [ ${#ports[@]} -eq 0 ]; then
-        ports=(80 8080 3306 31337 5000)
-        print_warning "No port configuration found in .env, using default ports"
+        ports=(80 8080)
+        print_warning "No port configuration found in .env, using default ports (80, 8080)"
     fi
     
     local occupied_ports=()
@@ -315,9 +315,9 @@ display_lab_info() {
     print_status "Lab Access Information:"
     echo "  📱 Main Application:     http://localhost:80"
     echo "  🔧 Administrator Panel:  http://localhost:8080/administrator/"
-    echo "  🗄️ Database:             localhost:3306"
-    echo "  🔒 Internal Service:     localhost:31337 (accessible after pivoting)"
-    echo "  🌐 Web Internal Service: http://localhost:5000 (accessible after pivoting)"
+    echo "  🗄️ Database:             available inside Docker network only"
+    echo "  🔒 Internal Service:     mbptl-internal:31337 (pivot required)"
+    echo "  🌐 Web Internal Service: http://mbptl-app:5000 (pivot required)"
     echo
     print_status "Default Credentials:"
     echo "  👤 Admin Username: admin"

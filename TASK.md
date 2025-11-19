@@ -28,12 +28,12 @@ This document outlines the complete process for discovering and collecting all *
 - **Flag 12**: Shell configuration analysis (`/root/.bashrc`)
 
 ### **Phase 6: Network Pivoting (Flags 13-14)**
-- **Flag 13**: Internal application discovery (port 5000)
+- **Flag 13**: Internal application discovery (port 5000, reachable only from the compromised container)
 - **Flag 14**: Server-Side Template Injection (SSTI)
 
 ### **Phase 7: Binary Exploitation (Flags 15-17)**
 - **Flag 15**: Binary analysis and reverse engineering
-- **Flag 16**: Internal service discovery (port 31337)
+- **Flag 16**: Internal service discovery (port 31337, reachable only from the compromised container)
 - **Flag 17**: Buffer overflow exploitation
 
 

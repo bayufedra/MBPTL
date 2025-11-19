@@ -42,15 +42,15 @@ The task guide provides an overview of all 17 flags organized by penetration tes
 
 This lab covers **complete penetration testing methodology** with **17 hands-on flags**. Complete the lab in this order:
 
-1. **🔍 Reconnaissance** → Information gathering and target enumeration
-2. **🎯 Vulnerability Assessment** → Identifying security weaknesses
-3. **💥 Exploitation** → Exploiting vulnerable applications and services
-4. **🔐 Password Cracking** → Breaking authentication mechanisms
-5. **🔓 Post-Exploitation** → Maintaining access and privilege escalation
-6. **🌐 Network Pivoting** → Moving between networks and accessing internal systems
-7. **⚡ Binary Exploitation** → Exploiting memory corruption vulnerabilities in compiled programs
-8. **🔬 Reverse Engineering** → Analyzing software to understand its functionality and identify vulnerabilities
-9. **🛡️ SOC Analysis** → Log analysis and forensic techniques
+1. **Reconnaissance** → Information gathering and target enumeration
+2. **Vulnerability Assessment** → Identifying security weaknesses
+3. **Exploitation** → Exploiting vulnerable applications and services
+4. **Password Cracking** → Breaking authentication mechanisms
+5. **Post-Exploitation** → Maintaining access and privilege escalation
+6. **Network Pivoting** → Moving between networks and accessing internal systems
+7. **Binary Exploitation** → Exploiting memory corruption vulnerabilities in compiled programs
+8. **Reverse Engineering** → Analyzing software to understand its functionality and identify vulnerabilities
+9. **SOC Analysis** → Log analysis and forensic techniques
 
 ## 📋 Prerequisites
 
@@ -89,18 +89,18 @@ The lab simulates a realistic network environment with **3 interconnected contai
 **Primary target with web applications**
 - **Port 80**: Web application with SQL injection vulnerability
 - **Port 8080**: Administrator panel with file upload vulnerability  
-- **Port 3306**: Local MySQL database
+- **Port 3306**: MySQL database (internal-only, reachable from other containers)
 - **Objective**: Initial compromise and privilege escalation
 
 ### 🔒 **Internal Container** (`mbptl-internal`)
 **Internal service for binary exploitation**
-- **Port 31337**: Custom binary service with buffer overflow vulnerability
+- **Port 31337**: Custom binary service with buffer overflow vulnerability (internal-only)
 - **Objective**: Binary exploitation and reverse engineering
 - **Access**: Only accessible after compromising main container
 
 ### 🌐 **Web Internal Container** (`mbptl-app`)
 **Internal web application for pivoting**
-- **Port 5000**: Flask application with template injection vulnerability
+- **Port 5000**: Flask application with template injection vulnerability (internal-only)
 - **Objective**: Advanced web application exploitation
 - **Access**: Only accessible after compromising main container
 
@@ -120,7 +120,7 @@ docker compose up -d
 ```
 
 **Port conflicts:**
-- If ports 80, 8080, or 3306 are in use, modify the `.env` file or use different ports.
+- If ports 80 or 8080 are in use, modify the `.env` file or use different ports.
 
 **Permission issues (Linux/macOS):**
 ```bash
