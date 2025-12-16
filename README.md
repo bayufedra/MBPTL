@@ -2,7 +2,7 @@
 
 [![License: GPL-3.0](https://img.shields.io/badge/License-GPL%203.0-green.svg)](https://opensource.org/licenses/GPL-3.0)
 [![Docker](https://img.shields.io/badge/Docker-Ready-blue.svg)](https://www.docker.com/)
-[![Black Hat Arsenal EU 2025](https://img.shields.io/badge/Black%20Hat%20Arsenal-EU%202025-red.svg)](https://www.blackhat.com/eu-25/arsenal/schedule/#mbptl---most-basic-penetration-testing-lab-48622)
+[![Black Hat Arsenal EU 2025](https://img.shields.io/badge/Black%20Hat%20Arsenal-EU%202025-white.svg)](https://www.blackhat.com/eu-25/arsenal/schedule/#mbptl---most-basic-penetration-testing-lab-48622)
 
 > **🎯 Perfect for beginners!** A comprehensive, hands-on penetration testing lab designed to teach cybersecurity fundamentals through practical exercises.
 
@@ -185,3 +185,4 @@ This project is licensed under the GPL-3.0 license. See the [LICENSE](LICENSE) f
 ---
 
 ⭐ **If you find this lab helpful, please give it a star and recommend it to your friends!**
+
