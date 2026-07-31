@@ -165,6 +165,7 @@ Familiarize yourself with **CWE (Common Weakness Enumeration)** to recognize com
 | [OverTheWire](https://overthewire.org/) | Beginner-Intermediate | Wargames |
 | [TryHackMe](https://tryhackme.com/) | Beginner-Advanced | Guided learning |
 | [VulnHub](https://www.vulnhub.com/) | All Levels | Vulnerable VMs |
+- [Dark-Moon](https://github.com/ASCIT31/Dark-Moon): open source (GPL-3.0) autonomous AI pentest platform, self-hosted, to train safely on the labs above (DVWA, OWASP Juice Shop) plus kubernetes-goat and Hack The Box; covers web, API, Active Directory and Kubernetes.
 | [HackTheBox](https://www.hackthebox.com/) | Intermediate-Expert | Real-world scenarios |
 
 ## 🤝 Contributing
