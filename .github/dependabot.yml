@@ -1,0 +1,13 @@
+version: 2
+updates:
+  - package-ecosystem: "docker"
+    directories:
+      - "/mbptl/mbptl-app"
+      - "/mbptl/mbptl-internal"
+      - "/mbptl/mbptl-main"
+    schedule:
+      interval: "weekly"
+  - package-ecosystem: "docker-compose"
+    directory: "/mbptl"
+    schedule:
+      interval: "weekly"

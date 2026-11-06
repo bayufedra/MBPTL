@@ -8,6 +8,11 @@
 
 **Getting started?** Follow the [**Task Guide**](TASK.md) to understand how to collect all 17 flags. **Need detailed solutions?** Check out the [**Write-up Guide**](writeup/README.md) for step-by-step instructions. Don't worry if you don't understand everything at first because this lab is designed to introduce fundamental tools, concepts, and workflows commonly used in cybersecurity and penetration testing. The goal is to help you become familiar with the topics and tools involved, even if you're still learning.
 
+## Maintainer
+Maintained by Bayu Fedra Abdullah ([LinkedIn](https://www.linkedin.com/in/bayufedra/)).
+- Presented at Black Hat Europe 2025 Arsenal.
+- Security policy: see [SECURITY.md](SECURITY.md).
+
 ## 📖 Table of Contents
 
 - [Quick Start](#-quick-start)
