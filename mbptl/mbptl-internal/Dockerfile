@@ -1,5 +1,5 @@
 # Dockerfile.ubuntu16
-FROM ubuntu:16.04
+FROM ubuntu:25.10
 
 ENV DEBIAN_FRONTEND=noninteractive
 
