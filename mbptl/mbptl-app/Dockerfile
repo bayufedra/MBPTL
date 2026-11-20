@@ -1,5 +1,5 @@
 # Build stage
-FROM python:3.11-alpine AS builder
+FROM python:3.15-alpine AS builder
 
 # Install build dependencies
 RUN apk add --no-cache build-base
@@ -7,7 +7,7 @@ RUN apk add --no-cache build-base
 WORKDIR /usr/src/app
 
 # Final stage
-FROM python:3.11-alpine
+FROM python:3.15-alpine
 
 # Copy Python runtime environment from builder
 COPY --from=builder /usr/local /usr/local
